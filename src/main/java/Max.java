@@ -16,13 +16,9 @@ public class Max {
                 break;
             } else if (input.equals("list")) {
                 System.out.println("Here are the tasks in your list:");
-                int j = 1;
                 for (i = 0; i < tasks.length; i++) {
                     if (tasks[i] != null) {
-                        System.out.print((i+1) + ". " + tasks[i].toString() + "\n");
-                        j++;
-                    } else {
-                        continue;
+                        System.out.print((i + 1) + ". " + tasks[i].toString() + "\n");
                     }
                 }
             } else if (inputParts[0].equals("mark") && inputParts.length == 2) {
