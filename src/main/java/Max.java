@@ -1,11 +1,9 @@
 import java.util.Scanner;
-
-
+import java.util.ArrayList;
 public class Max {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Task[] tasks = new Task[100];
-        int i = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
         System.out.println("Hello I'm Max!\n It's so nice to meet you!!\n");
 
         while (true) {
@@ -21,50 +19,43 @@ public class Max {
                     break;
                 } else if (input.equals("list")) {
                     System.out.println("Here are the tasks in your list:");
-                    for (int j = 0; j < tasks.length; j++) {
-                        if (tasks[j] != null) {
-                            System.out.print(" "+ (j + 1) + ". " + tasks[j].toString() + "\n");
-                        }
+                    for (int j = 0; j < tasks.size(); j++) {
+                        System.out.print(" " + (j + 1) + ". " + tasks.get(j).toString() + "\n");
                     }
                 } else if (inputParts[0].equals("mark") && inputParts.length == 2) {
                     int index = Integer.parseInt(inputParts[1]) - 1;
-                    tasks[index].markAsDone();
+                    tasks.get(index).markAsDone();
                 } else if (inputParts[0].equals("unmark") && inputParts.length == 2) {
                     int index = Integer.parseInt(inputParts[1]) - 1;
-                    tasks[index].markAsNotDone();
+                    tasks.get(index).markAsNotDone();
                 } else if (inputParts[0].equalsIgnoreCase("todo") && inputParts.length >= 2){
-                    if (i >= tasks.length) {
-                        System.out.println("Task limit reached. Cannot add more tasks.");
-                        continue;
-                    }
                     Task task = new ToDo(inputParts[1]);
-                    tasks[i] = task;
-                    i++;
+                    tasks.add(task);
                     System.out.println("Got it. I've added this task:\n  " + task.toString() + "\n" +
-                            "Now you have " + (i) + " tasks in the list.");
+                            "Now you have " + tasks.size() + " tasks in the list.");
                 } else if (inputParts[0].equalsIgnoreCase("deadline") && inputParts.length >= 2){
-                    if (i >= tasks.length) {
-                        System.out.println("Task limit reached. Cannot add more tasks.");
-                        continue;
-                    }
                     String[] finalInputParts = inputParts[1].split("/by", 2);
                     Task task = new Deadline(finalInputParts[0],finalInputParts[1]);
-                    tasks[i] = task;
-                    i++;
+                    tasks.add(task);
                     System.out.println("Got it. I've added this task:\n  " + task.toString() + "\n" +
-                            "Now you have " + (i) + " tasks in the list.");
+                            "Now you have " + tasks.size() + " tasks in the list.");
                 } else if (inputParts[0].equalsIgnoreCase("event") && inputParts.length >= 2){
-                    if (i >= tasks.length) {
-                        System.out.println("Task limit reached. Cannot add more tasks.");
-                        continue;
-                    }
                     String[] newInputParts = inputParts[1].split("/from", 2);
                     String[] finalInputParts = newInputParts[1].split("/to", 2);
                     Task task = new Event(newInputParts[0], finalInputParts[0],finalInputParts[1]);
-                    tasks[i] = task;
-                    i++;
+                    tasks.add(task);
                     System.out.println("Got it. I've added this task:\n  " + task.toString() + "\n" +
-                            "Now you have " + (i) + " tasks in the list.");
+                            "Now you have " + tasks.size() + " tasks in the list.");
+                } else if (inputParts[0].equalsIgnoreCase("delete")) {
+                    if (inputParts.length < 2) {
+                        throw new MaxException("Please specify the task number to delete.");
+                    }
+                    int index = Integer.parseInt(inputParts[1]) - 1;
+                    if (index < 0 || index >= tasks.size()) {
+                        throw new MaxException("Invalid task number.");
+                    }
+                    Task removedTask = tasks.remove(index);
+                    System.out.println("Noted. I've removed this task:\n  " + removedTask + "\nNow you have " + tasks.size() + " tasks in the list.");
                 } else if (input.equals("todo")){
                     throw new MaxException("The description of a todo cannot be empty.");
                 } else if (input.equals("deadline")) {
