@@ -1,13 +1,21 @@
-import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
 
 public class Max {
+    private static final String FILE_PATH = "src/main/java/max.txt";
     enum Command {
         LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, BYE, UNKNOWN
     }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = loadTasksFromFile();
 
         System.out.println("Hello I'm Max!\n It's so nice to meet you!!\n");
 
@@ -40,7 +48,8 @@ public class Max {
                         }
                         Task todoTask = new ToDo(inputParts[1]);
                         tasks.add(todoTask);
-                        System.out.println("Got it. I've added this task:\n  " + todoTask.toString() + "\n" +
+                        saveTasksToFile(tasks);
+                        System.out.println("Got it. I've added this task:\n  " + todoTask + "\n" +
                                 "Now you have " + tasks.size() + " tasks in the list.");
                         break;
 
@@ -51,7 +60,8 @@ public class Max {
                         String[] deadlineParts = inputParts[1].split("/by", 2);
                         Task deadlineTask = new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
                         tasks.add(deadlineTask);
-                        System.out.println("Got it. I've added this task:\n  " + deadlineTask.toString() + "\n" +
+                        saveTasksToFile(tasks);
+                        System.out.println("Got it. I've added this task:\n  " + deadlineTask + "\n" +
                                 "Now you have " + tasks.size() + " tasks in the list.");
                         break;
 
@@ -63,7 +73,8 @@ public class Max {
                         String[] eventTimes = eventParts[1].split("/to", 2);
                         Task eventTask = new Event(eventParts[0].trim(), eventTimes[0].trim(), eventTimes[1].trim());
                         tasks.add(eventTask);
-                        System.out.println("Got it. I've added this task:\n  " + eventTask.toString() + "\n" +
+                        saveTasksToFile(tasks);
+                        System.out.println("Got it. I've added this task:\n  " + eventTask + "\n" +
                                 "Now you have " + tasks.size() + " tasks in the list.");
                         break;
 
@@ -76,6 +87,7 @@ public class Max {
                             throw new MaxException("Invalid task number.");
                         }
                         tasks.get(markIndex).markAsDone();
+                        saveTasksToFile(tasks);
                         System.out.println("Nice! I've marked this task as done:\n  " + tasks.get(markIndex));
                         break;
 
@@ -88,6 +100,7 @@ public class Max {
                             throw new MaxException("Invalid task number.");
                         }
                         tasks.get(unmarkIndex).markAsNotDone();
+                        saveTasksToFile(tasks);
                         System.out.println("OK, I've unmarked this task:\n  " + tasks.get(unmarkIndex));
                         break;
 
@@ -100,6 +113,7 @@ public class Max {
                             throw new MaxException("Invalid task number.");
                         }
                         Task removedTask = tasks.remove(deleteIndex);
+                        saveTasksToFile(tasks);
                         System.out.println("Noted. I've removed this task:\n  " + removedTask + "\nNow you have " + tasks.size() + " tasks in the list.");
                         break;
 
@@ -117,4 +131,43 @@ public class Max {
             }
         }
     }
+
+    private static void saveTasksToFile(ArrayList<Task> tasks) {
+        try {
+            Path path = Paths.get(FILE_PATH);
+            Files.createDirectories(path.getParent());
+
+            FileWriter writer = new FileWriter(FILE_PATH);
+            for (Task task : tasks) {
+                writer.write(task.toFileString() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    private static ArrayList<Task> loadTasksFromFile() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        File file = new File(FILE_PATH);
+
+        if (!file.exists()) {
+            return tasks;
+        }
+
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(FILE_PATH));
+            for (String line : lines) {
+                Task task = Task.fromFileString(line);
+                if (task != null) {
+                    tasks.add(task);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading tasks: this file does not exist! " + e.getMessage());
+        }
+        return tasks;
+    }
 }
+
+
