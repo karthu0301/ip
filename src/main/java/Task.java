@@ -46,7 +46,8 @@ public abstract class Task {
                 return event;
 
             default:
-                return null; // If file is corrupted, return null
+                return null; 
         }
     }
+
 }
