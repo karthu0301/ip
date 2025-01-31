@@ -11,7 +11,7 @@ import java.util.List;
 public class Max {
     private static final String FILE_PATH = "src/main/java/max.txt";
     enum Command {
-        LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, BYE, UNKNOWN
+        LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, BYE, UNKNOWN, ON
     }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -115,6 +115,21 @@ public class Max {
                         Task removedTask = tasks.remove(deleteIndex);
                         saveTasksToFile(tasks);
                         System.out.println("Noted. I've removed this task:\n  " + removedTask + "\nNow you have " + tasks.size() + " tasks in the list.");
+                        break;
+
+                    case ON:
+                        if (inputParts.length < 2) {
+                            throw new MaxException("Please specify a date (yyyy-MM-dd).");
+                        }
+                        String date = inputParts[1];
+                        System.out.println("Here are the tasks on " + date + ":");
+                        for (Task task : tasks) {
+                            if (task instanceof Deadline && ((Deadline) task).isOnDate(date)) {
+                                System.out.println(" " + task);
+                            } else if (task instanceof Event && ((Event) task).isOnDate(date)) {
+                                System.out.println(" " + task);
+                            }
+                        }
                         break;
 
                     case BYE:
