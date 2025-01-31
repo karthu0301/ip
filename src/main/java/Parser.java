@@ -16,13 +16,13 @@ public class Parser {
                 return new AddCommand("todo", arguments);
 
             case "deadline":
-                if (arguments.isEmpty() || !arguments.contains("/by")) {
+                if (!arguments.contains("/by")) {
                     throw new MaxException("Invalid deadline format! Use: deadline <description> /by <date-time>");
                 }
                 return new AddCommand("deadline", arguments);
 
             case "event":
-                if (arguments.isEmpty() || !arguments.contains("/from") || !arguments.contains("/to")) {
+                if (!arguments.contains("/from") || !arguments.contains("/to")) {
                     throw new MaxException("Invalid event format! Use: event <description> /from <start> /to <end>");
                 }
                 return new AddCommand("event", arguments);

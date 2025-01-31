@@ -20,7 +20,6 @@ public class Storage {
         if (!file.exists()) {
             try {
                 Files.createDirectories(Path.of(file.getParent()));
-                file.createNewFile();
             } catch (IOException e) {
                 throw new MaxException("Error creating file: " + filePath);
             }
