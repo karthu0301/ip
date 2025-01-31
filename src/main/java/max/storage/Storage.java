@@ -1,3 +1,8 @@
+package max.storage;
+
+import max.exception.MaxException;
+import max.task.Task;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Storage {
-
     private final String filePath;
 
     public Storage(String filePath) {
@@ -20,6 +24,7 @@ public class Storage {
         if (!file.exists()) {
             try {
                 Files.createDirectories(Path.of(file.getParent()));
+                file.createNewFile();
             } catch (IOException e) {
                 throw new MaxException("Error creating file: " + filePath);
             }

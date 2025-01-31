@@ -1,8 +1,16 @@
-public class Max {
+package max;
 
-    private final Storage storage;
+import max.command.Command;
+import max.exception.MaxException;
+import max.parser.Parser;
+import max.storage.Storage;
+import max.task.TaskList;
+import max.ui.Ui;
+
+public class Max {
+    private Storage storage;
     private TaskList tasks;
-    private final Ui ui;
+    private Ui ui;
 
     public Max(String filePath) {
         ui = new Ui();
@@ -31,9 +39,6 @@ public class Max {
     }
 
     public static void main(String[] args) {
-        new Max("data/max.txt").run();
+        new Max("data/tasks.txt").run();
     }
 }
-
-
-

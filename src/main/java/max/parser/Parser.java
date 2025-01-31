@@ -1,3 +1,7 @@
+package max.parser;
+import max.command.*;
+import max.exception.MaxException;
+
 public class Parser {
 
     public static Command parse(String fullCommand) throws MaxException {

@@ -1,15 +1,21 @@
+package max.task;
+
+import max.task.Task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class Deadline extends Task {
-    private LocalDateTime by;
+public class Event extends Task {
+    private LocalDateTime from;
+    private LocalDateTime to;
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
 
-    public Deadline(String description, String by) {
+    public Event(String description, String from, String to) {
         super(description);
-        this.by = parseDateTime(by);
+        this.from = parseDateTime(from);
+        this.to = parseDateTime(to);
     }
 
     private LocalDateTime parseDateTime(String dateTime) {
@@ -22,16 +28,16 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(OUTPUT_FORMATTER) + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(OUTPUT_FORMATTER) + " to: " + to.format(OUTPUT_FORMATTER) + ")";
     }
 
     @Override
     public String toFileString() {
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by.format(INPUT_FORMATTER);
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from.format(INPUT_FORMATTER) + " | " + to.format(INPUT_FORMATTER);
     }
 
     public boolean isOnDate(String date) {
         LocalDateTime givenDate = LocalDateTime.parse(date + "T00:00");
-        return by.toLocalDate().equals(givenDate.toLocalDate());
+        return from.toLocalDate().equals(givenDate.toLocalDate());
     }
 }

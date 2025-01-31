@@ -1,3 +1,5 @@
+package max.ui;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -5,7 +7,7 @@ public class Ui {
     private final Scanner scanner = new Scanner(System.in);
 
     public void showWelcome() {
-        System.out.println("Hello I'm Max!\nIt's so nice to meet you!!\n");
+        System.out.println("Hello I'm max.Max!\nIt's so nice to meet you!!\n");
     }
 
     public String readCommand() {
