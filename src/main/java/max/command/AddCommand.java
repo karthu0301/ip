@@ -16,6 +16,10 @@ public class AddCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws MaxException {
+        if (description == null || description.trim().isEmpty()) {
+            throw new MaxException("The description of a todo cannot be empty.");
+        }
+
         Task task;
         if (type.equals("todo")) {
             task = new ToDo(description);
