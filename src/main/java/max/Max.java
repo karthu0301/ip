@@ -11,9 +11,9 @@ import max.ui.Ui;
  * It initializes the chatbot, loads data, and processes user commands.
  */
 public class Max {
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
     /**
      * Initializes the Max chatbot.

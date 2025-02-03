@@ -1,7 +1,5 @@
 package max.task;
 
-import max.task.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -28,12 +26,14 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(OUTPUT_FORMATTER) + " to: " + to.format(OUTPUT_FORMATTER) + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(OUTPUT_FORMATTER) +
+                " to: " + to.format(OUTPUT_FORMATTER) + ")";
     }
 
     @Override
     public String toFileString() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from.format(INPUT_FORMATTER) + " | " + to.format(INPUT_FORMATTER);
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | "
+                + from.format(INPUT_FORMATTER) + " | " + to.format(INPUT_FORMATTER);
     }
 
     public boolean isOnDate(String date) {
