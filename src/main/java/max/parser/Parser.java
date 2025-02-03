@@ -1,9 +1,20 @@
 package max.parser;
+
 import max.command.*;
 import max.exception.MaxException;
 
+/**
+ * Parses user input into commands that can be executed by the chatbot.
+ */
 public class Parser {
 
+    /**
+     * Parses user input and returns the corresponding Command object.
+     *
+     * @param fullCommand The full command entered by the user.
+     * @return The corresponding Command object.
+     * @throws MaxException If the command is invalid.
+     */
     public static Command parse(String fullCommand) throws MaxException {
         String[] inputParts = fullCommand.split(" ", 2);
         String commandWord = inputParts[0];
@@ -12,67 +23,22 @@ public class Parser {
         switch (commandWord.toLowerCase()) {
             case "list":
                 return new ListCommand();
-
             case "todo":
-                if (arguments.isEmpty()) {
-                    throw new MaxException("The description of a todo cannot be empty.");
-                }
                 return new AddCommand("todo", arguments);
-
             case "deadline":
-                if (!arguments.contains("/by")) {
-                    throw new MaxException("Invalid deadline format! Use: deadline <description> /by <date-time>");
-                }
                 return new AddCommand("deadline", arguments);
-
             case "event":
-                if (!arguments.contains("/from") || !arguments.contains("/to")) {
-                    throw new MaxException("Invalid event format! Use: event <description> /from <start> /to <end>");
-                }
                 return new AddCommand("event", arguments);
-
             case "mark":
-                if (arguments.isEmpty()) {
-                    throw new MaxException("Please specify the task number to mark.");
-                }
-                try {
-                    int index = Integer.parseInt(arguments);
-                    return new MarkCommand(true, index);
-                } catch (NumberFormatException e) {
-                    throw new MaxException("Invalid task number for mark command.");
-                }
-
+                return new MarkCommand(true, Integer.parseInt(arguments));
             case "unmark":
-                if (arguments.isEmpty()) {
-                    throw new MaxException("Please specify the task number to unmark.");
-                }
-                try {
-                    int index = Integer.parseInt(arguments);
-                    return new MarkCommand(false, index);
-                } catch (NumberFormatException e) {
-                    throw new MaxException("Invalid task number for unmark command.");
-                }
-
+                return new MarkCommand(false, Integer.parseInt(arguments));
             case "delete":
-                if (arguments.isEmpty()) {
-                    throw new MaxException("Please specify the task number to delete.");
-                }
-                try {
-                    int index = Integer.parseInt(arguments);
-                    return new DeleteCommand(index);
-                } catch (NumberFormatException e) {
-                    throw new MaxException("Invalid task number for delete command.");
-                }
-
+                return new DeleteCommand(Integer.parseInt(arguments));
             case "on":
-                if (arguments.isEmpty()) {
-                    throw new MaxException("Please specify a date to filter tasks.");
-                }
                 return new ShowCommand(arguments);
-
             case "bye":
                 return new ExitCommand();
-
             default:
                 throw new MaxException("Unknown command: " + commandWord);
         }
