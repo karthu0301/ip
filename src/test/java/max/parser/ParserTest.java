@@ -25,6 +25,6 @@ public class ParserTest {
             Parser.parse("invalidCommand");
         });
 
-        assertEquals("Unknown command: invalidCommand", exception.getMessage());
+        assertEquals("Oh no! Unknown command! Did you mean 'todo', 'deadline', 'event', or 'find'?", exception.getMessage());
     }
 }

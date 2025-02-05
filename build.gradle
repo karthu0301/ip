@@ -9,6 +9,12 @@ repositories {
     mavenCentral()
 }
 
+checkstyle {
+    toolVersion = '8.45'
+    configFile = file("config/checkstyle/checkstyle.xml")
+    ignoreFailures = false
+}
+
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
