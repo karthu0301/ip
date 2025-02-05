@@ -6,12 +6,20 @@ import max.parser.Parser;
 import max.storage.Storage;
 import max.task.TaskList;
 import max.ui.Ui;
-
+/**
+ * The main class for the Max chatbot application.
+ * It initializes the chatbot, loads data, and processes user commands.
+ */
 public class Max {
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
+    /**
+     * Initializes the Max chatbot.
+     *
+     * @param filePath The file path where tasks are stored.
+     */
     public Max(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -23,6 +31,9 @@ public class Max {
         }
     }
 
+    /**
+     * Starts the chatbot and continuously processes user input.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -38,6 +49,11 @@ public class Max {
         }
     }
 
+    /**
+     * Main method to start the chatbot.
+     *
+     * @param args Command-line arguments.
+     */
     public static void main(String[] args) {
         new Max("data/tasks.txt").run();
     }
