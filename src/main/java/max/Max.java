@@ -6,14 +6,16 @@ import max.storage.Storage;
 import max.task.TaskList;
 import max.ui.Ui;
 
+
 /**
  * Represents the main chatbot class that handles the initialization of
  * components such as storage, task list, and UI, and provides responses to user input.
+
  */
 public class Max {
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
     /**
      * Constructs a {@code Max} instance.
@@ -45,4 +47,5 @@ public class Max {
             return "Error: " + e.getMessage();
         }
     }
+
 }
