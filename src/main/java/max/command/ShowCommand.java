@@ -30,14 +30,15 @@ public class ShowCommand extends Command {
      * @param storage The storage handler (not used in this command).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.show("Here are the tasks on " + date + ":");
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        StringBuilder response = new StringBuilder("Here are the tasks on " + date + ":\n");
         for (Task task : tasks.getTasks()) {
             if (task instanceof Deadline && ((Deadline) task).isOnDate(date)) {
-                ui.show("  " + task);
+                response.append("  ").append(task).append("\n");
             } else if (task instanceof Event && ((Event) task).isOnDate(date)) {
-                ui.show("  " + task);
+                response.append("  ").append(task).append("\n");
             }
         }
+        return response.toString();
     }
 }

@@ -5,43 +5,43 @@ import max.task.Task;
 import max.task.TaskList;
 import max.ui.Ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * Represents a command to find tasks that contain a specific keyword.
+ * Represents a command to find tasks containing a specific keyword.
  */
 public class FindCommand extends Command {
     private final String keyword;
 
     /**
-     * Constructs a FindCommand with the specified keyword.
+     * Creates a FindCommand with the specified keyword.
      *
      * @param keyword The keyword to search for in task descriptions.
      */
     public FindCommand(String keyword) {
-        this.keyword = keyword.toLowerCase(); // Ensure case-insensitive search
+        this.keyword = keyword;
     }
 
-    /**
-     * Executes the find command, searching for tasks containing the keyword.
-     *
-     * @param tasks   The task list to search.
-     * @param ui      The user interface to display messages.
-     * @param storage The storage handler (not used in this command).
-     */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.show("Here are the matching tasks in your list:");
-        int matchCount = 0;
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        List<Task> matchingTasks = new ArrayList<>();
 
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.getTask(i);
-            if (task.getDescription().toLowerCase().contains(keyword)) {
-                ui.show((matchCount + 1) + ". " + task);
-                matchCount++;
+        for (Task task : tasks.getTasks()) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
             }
         }
 
-        if (matchCount == 0) {
-            ui.show("No matching tasks found.");
+        if (matchingTasks.isEmpty()) {
+            return "No matching tasks found for: " + keyword;
         }
+
+        StringBuilder response = new StringBuilder("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            response.append((i + 1)).append(". ").append(matchingTasks.get(i)).append("\n");
+        }
+
+        return response.toString();
     }
 }

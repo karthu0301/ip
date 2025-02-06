@@ -29,7 +29,7 @@ public class DeleteCommand extends Command {
      * @param storage The storage handler for saving changes.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws MaxException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws MaxException {
         int deleteIndex = index - 1;
         if (deleteIndex < 0 || deleteIndex >= tasks.size()) {
             throw new MaxException("Invalid task number!");
@@ -37,7 +37,7 @@ public class DeleteCommand extends Command {
 
         Task removedTask = tasks.deleteTask(deleteIndex);
         storage.save(tasks.getTasks());
-        ui.show("Noted. I've removed this task:\n  " + removedTask + "\nNow you have " + tasks.size() +
-                " tasks in the list.");
+        return "Noted. I've removed this task:\n  " + removedTask + "\nNow you have " + tasks.size() + " tasks in the list.";
+
     }
 }
