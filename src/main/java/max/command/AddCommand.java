@@ -15,7 +15,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws MaxException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws MaxException {
         if (description == null || description.trim().isEmpty()) {
             throw new MaxException("The description of a todo cannot be empty.");
         }
@@ -35,6 +35,6 @@ public class AddCommand extends Command {
         }
         tasks.addTask(task);
         storage.save(tasks.getTasks());
-        ui.show("Got it. I've added this task:\n  " + task + "\nNow you have " + tasks.size() + " tasks in the list.");
+        return "Got it. I've added this task:\n  " + task + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 }

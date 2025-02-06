@@ -44,7 +44,7 @@ public class Parser {
         case "bye":
             return new ExitCommand();
         default:
-            throw new MaxException("Unknown command! Did you mean 'todo', 'deadline', 'event', or 'find'?");
+            throw new MaxException("Oh no! Unknown command! Did you mean 'todo', 'deadline', 'event', or 'find'?");
         }
     }
 }

@@ -14,19 +14,15 @@ public class MarkCommand extends Command {
         this.index = index;
     }
 
+
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws MaxException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws MaxException {
         int markIndex = index - 1;
         if (markIndex < 0 || markIndex >= tasks.size()) {
             throw new MaxException("Invalid task number!");
         }
-
-        if (status) {
-            tasks.getTask(markIndex).markAsDone();
-        } else {
-            tasks.getTask(markIndex).markAsNotDone();
-        }
-
+        tasks.getTask(markIndex).markAsDone();
         storage.save(tasks.getTasks());
+        return "Nice! I've marked this task as done:\n  " + tasks.getTask(markIndex);
     }
 }
