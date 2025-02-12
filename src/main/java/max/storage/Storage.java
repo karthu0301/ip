@@ -1,15 +1,17 @@
 package max.storage;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+
 import max.exception.MaxException;
 import max.task.Task;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * Handles file storage operations for saving and loading tasks.

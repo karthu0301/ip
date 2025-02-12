@@ -10,10 +10,13 @@ import max.ui.Ui;
  * All specific commands (e.g., AddCommand, DeleteCommand) extend this class.
  */
 public abstract class Command {
+    /**
+     * Executes the command.
+     *
+     * @param tasks   The task list to modify.
+     * @param ui      The user interface for displaying messages.
+     * @param storage The storage handler for saving data.
+     * @throws MaxException If the command encounters an error.
+     */
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws MaxException;
-
-
-    public boolean isExit() {
-        return false;
-    }
 }
