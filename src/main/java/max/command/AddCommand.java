@@ -1,5 +1,7 @@
 package max.command;
 
+import java.util.Arrays;
+
 import max.exception.MaxException;
 import max.storage.Storage;
 import max.task.Deadline;
@@ -8,6 +10,8 @@ import max.task.Task;
 import max.task.TaskList;
 import max.task.ToDo;
 import max.ui.Ui;
+
+
 
 /**
  * Represents a command to add a new task (ToDo, Deadline, or Event).
@@ -46,13 +50,13 @@ public class AddCommand extends Command {
             task = new ToDo(description);
         } else if (type.equals("deadline")) {
             String[] parts = description.split(" /by ");
-            if (parts.length < 2) {
+            if (Arrays.stream(parts).anyMatch(String::isEmpty)) {
                 throw new MaxException("Invalid deadline format. Use: deadline [description] /by [time]");
             }
             task = new Deadline(parts[0], parts[1]);
         } else if (type.equals("event")) {
             String[] parts = description.split(" /from ");
-            if (parts.length < 2 || !parts[1].contains(" /to ")) {
+            if (Arrays.stream(parts).anyMatch(String::isEmpty)) {
                 throw new MaxException("Invalid event format. Use: event [description] /from [start] /to [end]");
             }
             String[] timeParts = parts[1].split(" /to ");
