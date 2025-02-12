@@ -41,11 +41,14 @@ public class Max {
      * @return Chatbot's response.
      */
     public String getResponse(String input) {
+        String response;
         try {
-            return Parser.parse(input).execute(tasks, ui, storage);
+            response = Parser.parse(input).execute(tasks, ui, storage);
         } catch (MaxException e) {
-            return "Error: " + e.getMessage();
+            response = "Error: " + e.getMessage();
         }
+        assert response != null : "Chatbot response should never be null";
+        return response;
     }
 
 }

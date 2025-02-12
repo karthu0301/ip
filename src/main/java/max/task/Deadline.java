@@ -11,6 +11,7 @@ public class Deadline extends Task {
 
     public Deadline(String description, String by) {
         super(description);
+        assert by != null && !by.trim().isEmpty() : "Deadline date cannot be null or empty";
         this.by = parseDateTime(by);
     }
 
