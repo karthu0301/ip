@@ -3,9 +3,11 @@ package max.task;
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+    protected Priority priority;
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.priority = Priority.LOW;
     }
 
     /**
@@ -20,6 +22,15 @@ public abstract class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
     public void markAsDone(){
         this.isDone = true;
         System.out.println("Nice! I've marked this task as done:\n [X] " + this.description);

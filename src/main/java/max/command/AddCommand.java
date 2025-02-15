@@ -4,6 +4,7 @@ import max.exception.MaxException;
 import max.storage.Storage;
 import max.task.Deadline;
 import max.task.Event;
+import max.task.Priority;
 import max.task.Task;
 import max.task.TaskList;
 import max.task.ToDo;
@@ -15,6 +16,7 @@ import max.ui.Ui;
 public class AddCommand extends Command {
     private final String type;
     private final String description;
+    private final Priority priority;
 
     /**
      * Constructs an AddCommand with the specified task type and description.
@@ -22,9 +24,10 @@ public class AddCommand extends Command {
      * @param type        The type of task (todo, deadline, event).
      * @param description The description of the task.
      */
-    public AddCommand(String type, String description) {
+    public AddCommand(String type, String description, Priority priority) {
         this.type = type;
         this.description = description;
+        this.priority = priority;
     }
 
     /**
@@ -61,6 +64,7 @@ public class AddCommand extends Command {
             throw new MaxException("Invalid task type!");
         }
 
+        task.setPriority(priority);
         tasks.addTask(task);
         storage.save(tasks.getTasks());
         return "Got it. I've added this task:\n  " + task + "\nNow you have " + tasks.size() + " tasks in the list.";
