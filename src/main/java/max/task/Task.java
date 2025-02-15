@@ -1,11 +1,33 @@
 package max.task;
 
+/**
+ * Represents an abstract task with a description and completion status.
+ * This serves as a base class for different task types (ToDo, Deadline, Event).
+ */
 public abstract class Task {
-    protected String description;
-    protected boolean isDone;
+    private static final String DONE_ICON = "X";
+    private static final String NOT_DONE_ICON = " ";
+
+    private final String description;
+    private boolean isDone;
+
+    /**
+     * Constructs a Task with the given description.
+     *
+     * @param description The task description.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    /**
+     * Returns whether the task is marked as done.
+     *
+     * @return True if the task is done, false otherwise.
+     */
+    public boolean isDone() {
+        return isDone;
     }
 
     /**
@@ -17,49 +39,76 @@ public abstract class Task {
         return description;
     }
 
-    public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
-    }
-    public void markAsDone(){
+    /**
+     * Marks the task as done.
+     */
+    public void markAsDone() {
         this.isDone = true;
-        System.out.println("Nice! I've marked this task as done:\n [X] " + this.description);
     }
 
-    public void markAsNotDone(){
+    /**
+     * Marks the task as not done.
+     */
+    public void markAsNotDone() {
         this.isDone = false;
-        System.out.println("OK, I've marked this task as not done yet:\n [] " + this.description);
     }
 
+    /**
+     * Returns the status icon for the task.
+     *
+     * @return "X" if the task is done, otherwise " ".
+     */
+    public String getStatusIcon() {
+        return isDone ? DONE_ICON : NOT_DONE_ICON;
+    }
+
+    @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        return "[" + getStatusIcon() + "] " + description;
     }
 
+    /**
+     * Returns a string representation of the task for file storage.
+     *
+     * @return A formatted string used for saving the task in a file.
+     */
     public abstract String toFileString();
 
+    /**
+     * Parses a task from a file string representation.
+     *
+     * @param line The task string in file format.
+     * @return The corresponding Task object.
+     * @throws IllegalArgumentException If the task format is invalid.
+     */
     public static Task fromFileString(String line) {
         String[] parts = line.split(" \\| ");
+
+        if (parts.length < 3) {
+            throw new IllegalArgumentException("Invalid task format: " + line);
+        }
+
         String type = parts[0];
         boolean isDone = parts[1].equals("1");
 
+        Task task;
         switch (type) {
-            case "T":
-                ToDo todo = new ToDo(parts[2]);
-                if (isDone) todo.markAsDone();
-                return todo;
-
-            case "D":
-                Deadline deadline = new Deadline(parts[2], parts[3]);
-                if (isDone) deadline.markAsDone();
-                return deadline;
-
-            case "E":
-                Event event = new Event(parts[2], parts[3], parts[4]);
-                if (isDone) event.markAsDone();
-                return event;
-
-            default:
-                return null; 
+        case "T":
+            task = new ToDo(parts[2]);
+            break;
+        case "D":
+            if (parts.length < 4) { throw new IllegalArgumentException("Invalid Deadline format: " + line); }
+            task = new Deadline(parts[2], parts[3]);
+            break;
+        case "E":
+            if (parts.length < 5) { throw new IllegalArgumentException("Invalid Event format: " + line); }
+            task = new Event(parts[2], parts[3], parts[4]);
+            break;
+        default:
+            throw new IllegalArgumentException("Unknown task type: " + type);
         }
-    }
 
+        if (isDone) { task.markAsDone(); }
+        return task;
+    }
 }

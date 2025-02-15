@@ -19,14 +19,4 @@ public class ExitCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         return "Bye! Will I see you again? :)";
     }
-
-    /**
-     * Indicates that this command causes the chatbot to exit.
-     *
-     * @return `true`, since this is an exit command.
-     */
-    @Override
-    public boolean isExit() {
-        return true;
-    }
 }
