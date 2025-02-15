@@ -2,6 +2,8 @@ package max.command;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 
 import max.storage.Storage;
 import max.task.Task;
@@ -36,10 +38,9 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         List<Task> matchingTasks = filterMatchingTasks(tasks);
-
         return matchingTasks.isEmpty()
                 ? "No matching tasks found for: " + keyword
-                : formatMatchingTasks(matchingTasks);
+                : formatTaskList(matchingTasks);
     }
 
     /**
@@ -54,17 +55,11 @@ public class FindCommand extends Command {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Formats the matching tasks into a readable list.
-     *
-     * @param matchingTasks The list of tasks that match the keyword.
-     * @return A formatted string of matching tasks.
-     */
-    private String formatMatchingTasks(List<Task> matchingTasks) {
-        StringBuilder response = new StringBuilder("Here are the matching tasks:\n");
-        for (int i = 0; i < matchingTasks.size(); i++) {
-            response.append(i + 1).append(". ").append(matchingTasks.get(i)).append("\n");
-        }
-        return response.toString();
+
+    private String formatTaskList(List<Task> tasks) {
+        return IntStream.range(0, tasks.size())
+                .mapToObj(i -> (i + 1) + ". " + tasks.get(i))
+                .collect(Collectors.joining("\n", "Here are the matching tasks in your list:\n", ""));
     }
 }
+

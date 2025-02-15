@@ -1,5 +1,7 @@
 package max.command;
 
+import java.util.Arrays;
+
 import max.exception.MaxException;
 import max.storage.Storage;
 import max.task.Deadline;
@@ -8,6 +10,8 @@ import max.task.Task;
 import max.task.TaskList;
 import max.task.ToDo;
 import max.ui.Ui;
+
+
 
 /**
  * Represents a command to add a new task.
@@ -57,6 +61,7 @@ public class AddCommand extends Command {
             throw new MaxException("The description of a " + type + " cannot be empty.");
         }
     }
+
 
     /**
      * Creates a task based on the type specified.
