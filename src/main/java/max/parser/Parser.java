@@ -33,6 +33,7 @@ public class Parser {
      * @throws MaxException If the command is invalid or missing arguments.
      */
     public static Command parse(String fullCommand) throws MaxException {
+        assert fullCommand != null && !fullCommand.trim().isEmpty() : "Input command should not be null or empty";
         String[] inputParts = fullCommand.split(" ", 2);
         String commandWord = inputParts[0];
         String arguments = inputParts.length > 1 ? inputParts[1] : "";

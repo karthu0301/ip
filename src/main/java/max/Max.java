@@ -54,6 +54,8 @@ public class Max {
         } catch (MaxException e) {
             return "Oops! Something went wrong: " + e.getMessage();
         }
+        assert response != null : "Chatbot response should never be null";
+        return response;
     }
 
 }
