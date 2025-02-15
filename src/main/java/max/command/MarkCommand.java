@@ -4,7 +4,6 @@ import max.exception.MaxException;
 import max.storage.Storage;
 import max.task.Task;
 import max.task.TaskList;
-import max.ui.Ui;
 
 /**
  * Represents a command to mark or unmark a task as done.
@@ -28,13 +27,12 @@ public class MarkCommand extends Command {
      * Executes the mark/unmark command.
      *
      * @param tasks   The task list.
-     * @param ui      The user interface.
      * @param storage The storage handler.
      * @return A message confirming the action.
      * @throws MaxException If the index is invalid.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws MaxException {
+    public String execute(TaskList tasks, Storage storage) throws MaxException {
         validateIndex(tasks);
         return toggleTaskCompletion(tasks, storage);
     }
@@ -47,7 +45,7 @@ public class MarkCommand extends Command {
      */
     private void validateIndex(TaskList tasks) throws MaxException {
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
-            throw new MaxException("Invalid task number!");
+            throw new MaxException("Invalid task number does not a good task make!");
         }
     }
 
@@ -67,6 +65,8 @@ public class MarkCommand extends Command {
         }
 
         storage.save(tasks.getTasks());
-        return (isMarking ? "Nice! I've marked this task as done:\n  " : "OK! I've unmarked this task:\n  ") + task;
+        return (isMarking
+                ? "As you wish, I've marked this task as done:\n  "
+                : "Very good sir! I've unmarked this task:\n  ") + task;
     }
 }

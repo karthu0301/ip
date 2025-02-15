@@ -4,12 +4,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-
 import max.storage.Storage;
 import max.task.Task;
 import max.task.TaskList;
-import max.ui.Ui;
-
 
 
 /**
@@ -31,15 +28,14 @@ public class FindCommand extends Command {
      * Executes the find command.
      *
      * @param tasks   The task list to search.
-     * @param ui      The user interface for displaying messages.
      * @param storage The storage handler (not used here).
      * @return The list of matching tasks.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         List<Task> matchingTasks = filterMatchingTasks(tasks);
         return matchingTasks.isEmpty()
-                ? "No matching tasks found for: " + keyword
+                ? "Unfortunately, there were no matching tasks found for: " + keyword
                 : formatTaskList(matchingTasks);
     }
 
@@ -59,7 +55,7 @@ public class FindCommand extends Command {
     private String formatTaskList(List<Task> tasks) {
         return IntStream.range(0, tasks.size())
                 .mapToObj(i -> (i + 1) + ". " + tasks.get(i))
-                .collect(Collectors.joining("\n", "Here are the matching tasks in your list:\n", ""));
+                .collect(Collectors.joining("\n", "Certainly, here are the matching tasks in your list:\n", ""));
     }
 }
 
