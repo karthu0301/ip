@@ -48,10 +48,7 @@ public class AddCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws MaxException {
         validateDescription();
         Task task = createTask();
-        
-        // ✅ Apply priority setting
         task.setPriority(priority);
-        
         return addTaskToList(tasks, storage, task);
     }
 
@@ -94,7 +91,7 @@ public class AddCommand extends Command {
     private Task createDeadline() throws MaxException {
         String[] parts = description.split(" /by ");
         if (parts.length < 2) {
-            throw new MaxException("Invalid deadline format. Use: deadline [description] /by [time]");
+            throw new MaxException("Invalid deadline format. Use: deadline [description] /by [YYYY-MM-DD HHmm]");
         }
         return new Deadline(parts[0], parts[1]);
     }
@@ -122,7 +119,7 @@ public class AddCommand extends Command {
      * @param task    The task to add.
      * @return A confirmation message.
      */
-    private String addTaskToList(TaskList tasks, Storage storage, Task task) {
+    private String addTaskToList(TaskList tasks, Storage storage, Task task) throws MaxException {
         tasks.addTask(task);
         storage.save(tasks.getTasks());
         return "Got it. I've added this task:\n  " + task + "\nNow you have " + tasks.size() + " tasks in the list.";

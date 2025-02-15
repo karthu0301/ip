@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-
 import max.storage.Storage;
 import max.task.Task;
 import max.task.TaskList;

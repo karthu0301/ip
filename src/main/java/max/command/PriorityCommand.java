@@ -14,6 +14,10 @@ public class PriorityCommand extends Command {
     private final int index;
     private final Priority priority;
 
+
+    /**
+     * Initialises priority commmand.
+     */
     public PriorityCommand(int index, Priority priority) {
         this.index = index;
         this.priority = priority;
