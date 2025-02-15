@@ -14,10 +14,10 @@ public class TaskList {
         this.tasks = tasks;
     }
 
-    public void addTask(Task... tasksToAdd) {
-        for (Task task : tasksToAdd) {
-            tasks.add(task);
-        }
+    public void addTask(Task task) {
+        assert task != null : "Task to be added cannot be null";
+        tasks.add(task);
+
     }
 
     public Task deleteTask(int index) {

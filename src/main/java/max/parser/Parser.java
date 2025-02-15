@@ -1,6 +1,13 @@
 package max.parser;
 
-import max.command.*;
+import max.command.AddCommand;
+import max.command.Command;
+import max.command.DeleteCommand;
+import max.command.ExitCommand;
+import max.command.FindCommand;
+import max.command.ListCommand;
+import max.command.MarkCommand;
+import max.command.ShowCommand;
 import max.exception.MaxException;
 
 /**
@@ -15,6 +22,7 @@ public class Parser {
      * @throws MaxException If the command is invalid.
      */
     public static Command parse(String fullCommand) throws MaxException {
+        assert fullCommand != null && !fullCommand.trim().isEmpty() : "Input command should not be null or empty";
         String[] inputParts = fullCommand.split(" ", 2);
         String commandWord = inputParts[0];
         String arguments = inputParts.length > 1 ? inputParts[1] : "";
