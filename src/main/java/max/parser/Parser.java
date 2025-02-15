@@ -14,12 +14,23 @@ import max.exception.MaxException;
  * Parses user input and returns the corresponding command.
  */
 public class Parser {
+    private static final String CMD_LIST = "list";
+    private static final String CMD_TODO = "todo";
+    private static final String CMD_DEADLINE = "deadline";
+    private static final String CMD_EVENT = "event";
+    private static final String CMD_MARK = "mark";
+    private static final String CMD_UNMARK = "unmark";
+    private static final String CMD_DELETE = "delete";
+    private static final String CMD_ON = "on";
+    private static final String CMD_FIND = "find";
+    private static final String CMD_BYE = "bye";
+
     /**
      * Parses the user command and returns the appropriate Command object.
      *
      * @param fullCommand The full user input.
      * @return The corresponding Command object.
-     * @throws MaxException If the command is invalid.
+     * @throws MaxException If the command is invalid or missing arguments.
      */
     public static Command parse(String fullCommand) throws MaxException {
         assert fullCommand != null && !fullCommand.trim().isEmpty() : "Input command should not be null or empty";
@@ -28,28 +39,31 @@ public class Parser {
         String arguments = inputParts.length > 1 ? inputParts[1] : "";
 
         switch (commandWord.toLowerCase()) {
-        case "list":
+        case CMD_LIST:
             return new ListCommand();
-        case "todo":
-            return new AddCommand("todo", arguments);
-        case "deadline":
-            return new AddCommand("deadline", arguments);
-        case "event":
-            return new AddCommand("event", arguments);
-        case "mark":
-            return new MarkCommand(true, Integer.parseInt(arguments));
-        case "unmark":
-            return new MarkCommand(false, Integer.parseInt(arguments));
-        case "delete":
-            return new DeleteCommand(Integer.parseInt(arguments));
-        case "on":
+        case CMD_TODO:
+        case CMD_DEADLINE:
+        case CMD_EVENT:
+            return new AddCommand(commandWord, arguments);
+        case CMD_MARK:
+        case CMD_UNMARK:
+        case CMD_DELETE:
+            try {
+                int index = Integer.parseInt(arguments);
+                return commandWord.equals(CMD_MARK) ? new MarkCommand(true, index)
+                        : commandWord.equals(CMD_UNMARK) ? new MarkCommand(false, index)
+                        : new DeleteCommand(index);
+            } catch (NumberFormatException e) {
+                throw new MaxException("Please enter a valid task number.");
+            }
+        case CMD_ON:
             return new ShowCommand(arguments);
-        case "find":
+        case CMD_FIND:
             if (arguments.trim().isEmpty()) {
                 throw new MaxException("Please provide a keyword to search.");
             }
             return new FindCommand(arguments);
-        case "bye":
+        case CMD_BYE:
             return new ExitCommand();
         default:
             throw new MaxException("Oh no! Unknown command! Did you mean 'todo', 'deadline', 'event', or 'find'?");
