@@ -5,11 +5,11 @@ package max.task;
  * This serves as a base class for different task types (ToDo, Deadline, Event).
  */
 public abstract class Task {
+    protected String description;
+    protected boolean isDone;
+    protected Priority priority;
     private static final String DONE_ICON = "X";
     private static final String NOT_DONE_ICON = " ";
-
-    private final String description;
-    private boolean isDone;
 
     /**
      * Constructs a Task with the given description.
@@ -19,6 +19,7 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.priority = Priority.LOW;
     }
 
     /**
@@ -39,18 +40,28 @@ public abstract class Task {
         return description;
     }
 
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
     /**
      * Marks the task as done.
      */
-    public void markAsDone() {
+    public void markAsDone(){
         this.isDone = true;
+        System.out.println("Nice! I've marked this task as done:\n [X] " + this.description);
     }
 
     /**
      * Marks the task as not done.
      */
-    public void markAsNotDone() {
+    public void markAsNotDone(){
         this.isDone = false;
+        System.out.println("OK, I've marked this task as not done yet:\n [] " + this.description);
     }
 
     /**

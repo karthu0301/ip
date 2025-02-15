@@ -9,6 +9,7 @@ import max.command.ListCommand;
 import max.command.MarkCommand;
 import max.command.ShowCommand;
 import max.exception.MaxException;
+import max.task.Priority;
 
 /**
  * Parses user input and returns the corresponding command.
@@ -24,6 +25,7 @@ public class Parser {
     private static final String CMD_ON = "on";
     private static final String CMD_FIND = "find";
     private static final String CMD_BYE = "bye";
+    private static final String CMD_PRIORITY = "priority";
 
     /**
      * Parses the user command and returns the appropriate Command object.
@@ -44,7 +46,7 @@ public class Parser {
         case CMD_TODO:
         case CMD_DEADLINE:
         case CMD_EVENT:
-            return new AddCommand(commandWord, arguments);
+            return new AddCommand(commandWord, arguments, Priority.LOW);
         case CMD_MARK:
         case CMD_UNMARK:
         case CMD_DELETE:
@@ -65,6 +67,13 @@ public class Parser {
             return new FindCommand(arguments);
         case CMD_BYE:
             return new ExitCommand();
+        case CMD_PRIORITY:
+            if (inputParts.length < 3) {
+                throw new MaxException("Priority command format: priority [task number] [low/medium/high]");
+            }
+            int taskIndex = Integer.parseInt(inputParts[1]);
+            Priority priority = Priority.valueOf(inputParts[2].toUpperCase()); // Convert string to enum
+            return new PriorityCommand(taskIndex, priority);
         default:
             throw new MaxException("Oh no! Unknown command! Did you mean 'todo', 'deadline', 'event', or 'find'?");
         }

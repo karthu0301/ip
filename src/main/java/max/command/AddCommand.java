@@ -1,17 +1,14 @@
 package max.command;
 
-import java.util.Arrays;
-
 import max.exception.MaxException;
 import max.storage.Storage;
 import max.task.Deadline;
 import max.task.Event;
+import max.task.Priority;
 import max.task.Task;
 import max.task.TaskList;
 import max.task.ToDo;
 import max.ui.Ui;
-
-
 
 /**
  * Represents a command to add a new task.
@@ -23,16 +20,19 @@ public class AddCommand extends Command {
 
     private final String type;
     private final String description;
+    private final Priority priority;
 
     /**
      * Constructs an AddCommand with the specified task type and description.
      *
      * @param type        The type of task (todo, deadline, event).
      * @param description The description of the task.
+     * @param priority    The priority of the task.
      */
-    public AddCommand(String type, String description) {
+    public AddCommand(String type, String description, Priority priority) {
         this.type = type;
         this.description = description;
+        this.priority = priority;
     }
 
     /**
@@ -48,6 +48,10 @@ public class AddCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws MaxException {
         validateDescription();
         Task task = createTask();
+        
+        // ✅ Apply priority setting
+        task.setPriority(priority);
+        
         return addTaskToList(tasks, storage, task);
     }
 
@@ -61,7 +65,6 @@ public class AddCommand extends Command {
             throw new MaxException("The description of a " + type + " cannot be empty.");
         }
     }
-
 
     /**
      * Creates a task based on the type specified.
@@ -119,10 +122,7 @@ public class AddCommand extends Command {
      * @param task    The task to add.
      * @return A confirmation message.
      */
-    private String addTaskToList(TaskList tasks, Storage storage, Task task) throws MaxException {
-        if (description == null || description.trim().isEmpty()) {
-            throw new MaxException("The description of a " + type + " cannot be empty.");
-        }
+    private String addTaskToList(TaskList tasks, Storage storage, Task task) {
         tasks.addTask(task);
         storage.save(tasks.getTasks());
         return "Got it. I've added this task:\n  " + task + "\nNow you have " + tasks.size() + " tasks in the list.";
