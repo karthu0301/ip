@@ -8,9 +8,7 @@ import max.ui.Ui;
 
 
 /**
- * Represents the main chatbot class that handles the initialization of
- * components such as storage, task list, and UI, and provides responses to user input.
-
+ * Constructs a {@code Max} instance and initializes required components.
  */
 public class Max {
     private final Storage storage;
@@ -20,18 +18,24 @@ public class Max {
     /**
      * Constructs a {@code Max} instance.
      * Initializes the {@code Storage}, {@code TaskList}, and {@code Ui} components.
-     * If loading tasks from storage fails, it initializes with an empty task list
-     * and displays a loading error message.
      */
     public Max() {
         this.ui = new Ui();
-        ui.showWelcome();
         this.storage = new Storage("data/tasks.txt");
+        this.tasks = loadTasks();
+        ui.showWelcome();
+    }
+
+    /**
+     * Loads tasks from storage. If loading fails, initializes an empty task list
+     * and displays an error message.
+     */
+    private TaskList loadTasks() {
         try {
-            this.tasks = new TaskList(storage.load());
+            return new TaskList(storage.load());
         } catch (MaxException e) {
             ui.showLoadingError();
-            this.tasks = new TaskList();
+            return new TaskList();
         }
     }
 
@@ -41,11 +45,17 @@ public class Max {
      * @return Chatbot's response.
      */
     public String getResponse(String input) {
+        assert input != null : "User input should not be null";
+
         try {
-            return Parser.parse(input).execute(tasks, ui, storage);
+            String response = Parser.parse(input).execute(tasks, ui, storage);
+            assert response != null : "Response should not be null";
+            return response;
         } catch (MaxException e) {
-            return "Error: " + e.getMessage();
+            return "Oops! Something went wrong: " + e.getMessage();
         }
+        assert response != null : "Chatbot response should never be null";
+        return response;
     }
 
 }
