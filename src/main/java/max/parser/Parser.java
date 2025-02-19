@@ -7,6 +7,7 @@ import max.command.ExitCommand;
 import max.command.FindCommand;
 import max.command.ListCommand;
 import max.command.MarkCommand;
+import max.command.PriorityCommand;
 import max.command.ShowCommand;
 import max.exception.MaxException;
 import max.task.Priority;

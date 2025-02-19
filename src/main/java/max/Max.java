@@ -46,11 +46,10 @@ public class Max {
      */
     public String getResponse(String input) {
         assert input != null : "User input should not be null";
-
+        String response;
         try {
-            String response = Parser.parse(input).execute(tasks, ui, storage);
+            response = Parser.parse(input).execute(tasks, ui, storage);
             assert response != null : "Response should not be null";
-            return response;
         } catch (MaxException e) {
             return "Oops! Something went wrong: " + e.getMessage();
         }

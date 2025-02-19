@@ -22,22 +22,26 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
-        assert by != null && !by.trim().isEmpty() : "Deadline date cannot be null or empty";
+        assert by != null && !by.trim().isEmpty() : "Alas, the deadline date cannot be empty!";
         this.by = parseDateTime(by);
+
+        if (this.by.isBefore(LocalDateTime.now())) {
+            System.out.println("Warning! This deadline is in the past, like me!");
+        }
     }
 
     /**
-     * Parses the provided date-time string into a LocalDateTime object.
+     * Parses a date-time string into a LocalDateTime object.
      *
-     * @param dateTime Date-time string to be parsed.
+     * @param dateTime Date-time string.
      * @return LocalDateTime object representing the deadline.
-     * @throws IllegalArgumentException If the date-time format is invalid.
+     * @throws IllegalArgumentException If the format is invalid.
      */
     private LocalDateTime parseDateTime(String dateTime) {
         try {
             return LocalDateTime.parse(dateTime, INPUT_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Invalid date/time format! Please use 'yyyy-MM-dd HHmm'.");
+            throw new IllegalArgumentException("Invalid deadline format! Use 'yyyy-MM-dd HHmm'.");
         }
     }
 
