@@ -44,11 +44,7 @@ public class Max {
         assert input != null : "User input should not be null";
         String response;
         try {
-<<<<<<< HEAD
-            response = Parser.parse(input).execute(tasks, storage);
-=======
             response = Parser.parse(input).execute(tasks, ui, storage);
->>>>>>> 2fcc2def5d75ddd50155d3dbf99963abb6d3c4da
             assert response != null : "Response should not be null";
         } catch (MaxException e) {
             return e.getMessage();

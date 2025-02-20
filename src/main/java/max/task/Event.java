@@ -21,17 +21,25 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) {
         super(description);
-        assert from != null && !from.trim().isEmpty() : "Event start time cannot be null or empty";
-        assert to != null && !to.trim().isEmpty() : "Event end time cannot be null or empty";
-        this.from = parseDateTime(from);
-        this.to = parseDateTime(to);
+        assert from != null && !from.trim().isEmpty() : "Event start time cannot be empty";
+        assert to != null && !to.trim().isEmpty() : "Event end time cannot be empty";
+        this.from = parseDateTime(from, "Start time");
+        this.to = parseDateTime(to, "End time");
+
+        if (this.from.isAfter(this.to) || this.from.isEqual(this.to)) {
+            throw new IllegalArgumentException("As per common sense, start time must be before end time.");
+        }
+
+        if (this.to.isBefore(LocalDateTime.now())) {
+            System.out.println("Warning! This event has already ended!");
+        }
     }
 
-    private LocalDateTime parseDateTime(String dateTime) {
+    private LocalDateTime parseDateTime(String dateTime, String fieldName) {
         try {
             return LocalDateTime.parse(dateTime, INPUT_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Invalid date/time format! Please use 'yyyy-MM-dd HHmm'.");
+            throw new IllegalArgumentException(fieldName + " has an invalid format! Please use 'yyyy-MM-dd HHmm'.");
         }
     }
 
