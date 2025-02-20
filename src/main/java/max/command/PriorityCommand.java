@@ -12,7 +12,6 @@ import max.task.TaskList;
 public class PriorityCommand extends Command {
     private final int index;
     private final Priority priority;
-
     /**
      * Initialises priority commmand.
      */
