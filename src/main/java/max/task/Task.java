@@ -5,11 +5,11 @@ package max.task;
  * This serves as a base class for different task types (ToDo, Deadline, Event).
  */
 public abstract class Task {
+    private static final String DONE_ICON = "X";
+    private static final String NOT_DONE_ICON = " ";
     protected String description;
     protected boolean isDone;
     protected Priority priority;
-    private static final String DONE_ICON = "X";
-    private static final String NOT_DONE_ICON = " ";
 
     /**
      * Constructs a Task with the given description.
@@ -51,7 +51,7 @@ public abstract class Task {
     /**
      * Marks the task as done.
      */
-    public void markAsDone(){
+    public void markAsDone() {
         this.isDone = true;
         System.out.println("Nice! I've marked this task as done:\n [X] " + this.description);
     }
@@ -59,7 +59,7 @@ public abstract class Task {
     /**
      * Marks the task as not done.
      */
-    public void markAsNotDone(){
+    public void markAsNotDone() {
         this.isDone = false;
         System.out.println("OK, I've marked this task as not done yet:\n [] " + this.description);
     }
@@ -108,11 +108,15 @@ public abstract class Task {
             task = new ToDo(parts[2]);
             break;
         case "D":
-            if (parts.length < 4) { throw new IllegalArgumentException("Invalid Deadline format: " + line); }
+            if (parts.length < 4) {
+                throw new IllegalArgumentException("Invalid Deadline format: " + line);
+            }
             task = new Deadline(parts[2], parts[3]);
             break;
         case "E":
-            if (parts.length < 5) { throw new IllegalArgumentException("Invalid Event format: " + line); }
+            if (parts.length < 5) {
+                throw new IllegalArgumentException("Invalid Event format: " + line);
+            }
             task = new Event(parts[2], parts[3], parts[4]);
             break;
         default:

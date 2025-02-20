@@ -1,0 +1,64 @@
+/* Set background color for the entire chat window */
+.root {
+    -fx-background-color: white;
+}
+
+/* Style the ScrollPane (chat display area) */
+#scrollPane {
+    -fx-background: white;
+    -fx-border-color: transparent;
+    -fx-fit-to-width: true;
+}
+
+/* Style the chat container (VBox) */
+#dialogContainer {
+    -fx-padding: 10px;
+}
+
+/* Style the input field */
+#userInput {
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-border-color: #ccc;
+}
+
+/* Style the send button */
+#sendButton {
+    -fx-background-color: #4CAF50; /* Green */
+    -fx-text-fill: white;
+    -fx-border-radius: 5;
+    -fx-font-weight: bold;
+}
+#sendButton:hover {
+    -fx-background-color: #45A049;
+}
+
+/* Max's messages (Lavender, aligned left) */
+.max-dialog {
+    -fx-background-color: #E6E6FA;
+    -fx-padding: 10;
+    -fx-background-radius: 15;
+    -fx-border-color: #D8BFD8;
+    -fx-border-radius: 15;
+    -fx-text-fill: black;
+}
+
+/* User messages (Light Blue, aligned right) */
+.user-dialog {
+    -fx-background-color: #ADD8E6;
+    -fx-padding: 10;
+    -fx-background-radius: 15;
+    -fx-border-color: #87CEEB;
+    -fx-border-radius: 15;
+    -fx-text-fill: black;
+}
+
+/* Text Field */
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: #D8BFD8;
+    -fx-border-radius: 5;
+    -fx-padding: 5;
+}
