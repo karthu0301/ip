@@ -42,8 +42,8 @@ public class ParserTest {
         Exception exception = assertThrows(MaxException.class, () -> {
             Parser.parse("invalidCommand");
         });
+        assertEquals("What a strange command! Did you mean 'todo', 'deadline', 'event', or 'find'?",
 
-        assertEquals("Oh no! Unknown command! Did you mean 'todo', 'deadline', 'event', or 'find'?",
                 exception.getMessage(),
                 "Exception message should guide the user toward valid commands.");
     }

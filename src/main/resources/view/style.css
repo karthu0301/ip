@@ -1,64 +1,93 @@
-/* Set background color for the entire chat window */
+@font-face {
+    font-family: 'Great Vibes';
+    src: url('fonts/Great_Vibes/GreatVibes-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Jacquard_24';
+    src: url('fonts/Jacquard_24/Jacquard_24-Regular.ttf');
+}
+
+
+/* Background */
 .root {
-    -fx-background-color: white;
+    -fx-background-color: #3E2723; /* Dark Chocolate Brown */
 }
 
-/* Style the ScrollPane (chat display area) */
-#scrollPane {
-    -fx-background: white;
-    -fx-border-color: transparent;
-    -fx-fit-to-width: true;
+/* Header */
+.victorian-header {
+    -fx-font-family: "Great Vibes", cursive; /* Elegant cursive font */
+    -fx-font-size: 28px;
+    -fx-text-fill: #D2B48C; /* Tan */
+    -fx-font-weight: bold;
+    -fx-padding: 15px;
+    -fx-alignment: center;
+    -fx-border-color: #8B4513; /* Saddle Brown */
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-background-color: #5D4037; /* Rich Brown */
+    -fx-background-radius: 10px;
+    -fx-max-width: Infinity;
+    -fx-text-alignment: center;
 }
 
-/* Style the chat container (VBox) */
+/* Chat Background */
 #dialogContainer {
-    -fx-padding: 10px;
+    -fx-padding: 15px;
+    -fx-background-color: #F5F5DC; /* Soft Beige */
+    -fx-background-radius: 15px;
 }
 
-/* Style the input field */
+/* User Message */
+.user-dialog {
+    -fx-background-color: #A67B5B; /* Warm Brown */
+    -fx-background-radius: 20px;
+    -fx-padding: 12px;
+    -fx-border-color: #8B5A2B; /* Coffee Brown */
+    -fx-border-radius: 20px;
+    -fx-text-fill: black;
+    -fx-font-family: "Jacquard_24", serif;
+    -fx-font-size: 14px;
+}
+
+/* Max's Message */
+.max-dialog {
+    -fx-background-color: #6D4C41; /* Cocoa Brown */
+    -fx-background-radius: 20px;
+    -fx-padding: 12px;
+    -fx-border-color: #4E342E; /* Darker Brown */
+    -fx-border-radius: 20px;
+    -fx-text-fill: #FAEBD7; /* Antique White */
+    -fx-font-family: "Jacquard_24", serif;
+    -fx-font-size: 14px;
+}
+
+/* Input Field */
 #userInput {
     -fx-font-size: 14px;
     -fx-padding: 10px;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
-    -fx-border-color: #ccc;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-border-color: #6D4C41; /* Cocoa Brown */
+    -fx-background-color: white;
 }
 
-/* Style the send button */
+/* Send Button */
 #sendButton {
-    -fx-background-color: #4CAF50; /* Green */
+    -fx-background-color: #8B0000; /* Deep Red */
     -fx-text-fill: white;
-    -fx-border-radius: 5;
+    -fx-border-radius: 8px;
     -fx-font-weight: bold;
+    -fx-font-family: "Garamond", serif;
 }
 #sendButton:hover {
-    -fx-background-color: #45A049;
+    -fx-background-color: #5A0000; /* Even darker red */
 }
 
-/* Max's messages (Lavender, aligned left) */
-.max-dialog {
-    -fx-background-color: #E6E6FA;
-    -fx-padding: 10;
-    -fx-background-radius: 15;
-    -fx-border-color: #D8BFD8;
-    -fx-border-radius: 15;
+/* Typing Indicator */
+.typing-indicator {
+    -fx-background-color: #D3D3D3;
     -fx-text-fill: black;
-}
-
-/* User messages (Light Blue, aligned right) */
-.user-dialog {
-    -fx-background-color: #ADD8E6;
-    -fx-padding: 10;
-    -fx-background-radius: 15;
-    -fx-border-color: #87CEEB;
-    -fx-border-radius: 15;
-    -fx-text-fill: black;
-}
-
-/* Text Field */
-.text-field {
-    -fx-background-color: white;
-    -fx-border-color: #D8BFD8;
-    -fx-border-radius: 5;
-    -fx-padding: 5;
+    -fx-padding: 8px;
+    -fx-font-style: italic;
 }

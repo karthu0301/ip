@@ -8,7 +8,6 @@ import max.task.Priority;
 import max.task.Task;
 import max.task.TaskList;
 import max.task.ToDo;
-import max.ui.Ui;
 
 /**
  * Represents a command to add a new task.
@@ -39,13 +38,12 @@ public class AddCommand extends Command {
      * Executes the add command by adding a new task to the task list.
      *
      * @param tasks   The task list to modify.
-     * @param ui      The user interface for displaying messages.
      * @param storage The storage handler for saving changes.
      * @return A message confirming the task was added.
      * @throws MaxException If the task description is invalid.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws MaxException {
+    public String execute(TaskList tasks, Storage storage) throws MaxException {
         validateDescription();
         Task task = createTask();
         task.setPriority(priority);
@@ -59,7 +57,8 @@ public class AddCommand extends Command {
      */
     private void validateDescription() throws MaxException {
         if (description == null || description.trim().isEmpty()) {
-            throw new MaxException("The description of a " + type + " cannot be empty.");
+            throw new MaxException("Oh dear, an error! Allow me to correct it please, the description of a " + type
+                    + " cannot be empty.");
         }
     }
 
@@ -91,7 +90,8 @@ public class AddCommand extends Command {
     private Task createDeadline() throws MaxException {
         String[] parts = description.split(" /by ");
         if (parts.length < 2) {
-            throw new MaxException("Invalid deadline format. Use: deadline [description] /by [YYYY-MM-DD HHmm]");
+            throw new MaxException("Oh dear, an invalid deadline format. Please use: deadline [description] "
+                    + "/by [time] instead");
         }
         return new Deadline(parts[0], parts[1]);
     }
@@ -105,7 +105,8 @@ public class AddCommand extends Command {
     private Task createEvent() throws MaxException {
         String[] parts = description.split(" /from ");
         if (parts.length < 2 || !parts[1].contains(" /to ")) {
-            throw new MaxException("Invalid event format. Use: event [description] /from [start] /to [end]");
+            throw new MaxException("Oh dear, an error. Allow me to correct it. "
+                    + "Use: event [description] /from [start] /to [end]");
         }
         String[] timeParts = parts[1].split(" /to ");
         return new Event(parts[0], timeParts[0], timeParts[1]);
@@ -122,6 +123,7 @@ public class AddCommand extends Command {
     private String addTaskToList(TaskList tasks, Storage storage, Task task) throws MaxException {
         tasks.addTask(task);
         storage.save(tasks.getTasks());
-        return "Got it. I've added this task:\n  " + task + "\nNow you have " + tasks.size() + " tasks in the list.";
+        return "Certainly, sir/madam. I shall add that task immediately. :\n  " + task + "\nNow you have "
+                + tasks.size() + " tasks in the list.";
     }
 }

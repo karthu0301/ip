@@ -5,7 +5,6 @@ import max.storage.Storage;
 import max.task.Priority;
 import max.task.Task;
 import max.task.TaskList;
-import max.ui.Ui;
 
 /**
  * Represents a command to update a task's priority.
@@ -13,8 +12,6 @@ import max.ui.Ui;
 public class PriorityCommand extends Command {
     private final int index;
     private final Priority priority;
-
-
     /**
      * Initialises priority commmand.
      */
@@ -24,7 +21,7 @@ public class PriorityCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws MaxException {
+    public String execute(TaskList tasks, Storage storage) throws MaxException {
         int taskIndex = index - 1;
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
             throw new MaxException("Invalid task number!");

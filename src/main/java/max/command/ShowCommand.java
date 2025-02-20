@@ -5,7 +5,6 @@ import max.task.Deadline;
 import max.task.Event;
 import max.task.Task;
 import max.task.TaskList;
-import max.ui.Ui;
 
 /**
  * Represents a command to display tasks occurring on a specific date.
@@ -26,11 +25,10 @@ public class ShowCommand extends Command {
      * Executes the show command, displaying all tasks that occur on the specified date.
      *
      * @param tasks   The task list containing all tasks.
-     * @param ui      The user interface to display messages.
      * @param storage The storage handler (not used in this command).
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         StringBuilder response = new StringBuilder("Here are the tasks on " + date + ":\n");
         for (Task task : tasks.getTasks()) {
             if (task instanceof Deadline && ((Deadline) task).isOnDate(date)) {

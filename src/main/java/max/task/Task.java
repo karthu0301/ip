@@ -53,7 +53,7 @@ public abstract class Task {
      */
     public void markAsDone() {
         this.isDone = true;
-        System.out.println("Nice! I've marked this task as done:\n [X] " + this.description);
+        System.out.println("Beautiful! I always knew you could do this!:\n [X] " + this.description);
     }
 
     /**
@@ -61,7 +61,7 @@ public abstract class Task {
      */
     public void markAsNotDone() {
         this.isDone = false;
-        System.out.println("OK, I've marked this task as not done yet:\n [] " + this.description);
+        System.out.println("Alright, it's not too late to carry out your duties. :\n [] " + this.description);
     }
 
     /**
@@ -96,7 +96,7 @@ public abstract class Task {
         String[] parts = line.split(" \\| ");
 
         if (parts.length < 3) {
-            throw new IllegalArgumentException("Invalid task format: " + line);
+            throw new IllegalArgumentException("How dare you enter an invalid task format: " + line);
         }
 
         String type = parts[0];
@@ -109,18 +109,18 @@ public abstract class Task {
             break;
         case "D":
             if (parts.length < 4) {
-                throw new IllegalArgumentException("Invalid Deadline format: " + line);
+                throw new IllegalArgumentException("How dare you enter an invalid Deadline format: " + line);
             }
             task = new Deadline(parts[2], parts[3]);
             break;
         case "E":
             if (parts.length < 5) {
-                throw new IllegalArgumentException("Invalid Event format: " + line);
+                throw new IllegalArgumentException("How dare you enter an invalid Event format: " + line);
             }
             task = new Event(parts[2], parts[3], parts[4]);
             break;
         default:
-            throw new IllegalArgumentException("Unknown task type: " + type);
+            throw new IllegalArgumentException("This task type is unknown, just like you: " + type);
         }
 
         if (isDone) { task.markAsDone(); }
