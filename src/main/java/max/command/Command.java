@@ -3,7 +3,6 @@ package max.command;
 import max.exception.MaxException;
 import max.storage.Storage;
 import max.task.TaskList;
-import max.ui.Ui;
 
 /**
  * Represents an abstract command that can be executed in the chatbot.
@@ -14,9 +13,8 @@ public abstract class Command {
      * Executes the command.
      *
      * @param tasks   The task list to modify.
-     * @param ui      The user interface for displaying messages.
      * @param storage The storage handler for saving data.
      * @throws MaxException If the command encounters an error.
      */
-    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws MaxException;
+    public abstract String execute(TaskList tasks, Storage storage) throws MaxException;
 }

@@ -7,7 +7,6 @@ import java.util.stream.IntStream;
 import max.storage.Storage;
 import max.task.Task;
 import max.task.TaskList;
-import max.ui.Ui;
 
 /**
  * Represents a command to list all tasks.
@@ -18,14 +17,13 @@ public class ListCommand extends Command {
      * Executes the list command by displaying all tasks sorted by priority.
      *
      * @param tasks   The task list to display.
-     * @param ui      The user interface for displaying messages.
      * @param storage The storage handler (not used here).
      * @return A formatted list of tasks.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         if (tasks.size() == 0) {
-            return "Your task list is empty!";
+            return "Unfortunately sir/madam, just like your wallet, your task list is empty!";
         }
 
         List<Task> sortedTasks = tasks.getTasks().stream()
@@ -44,6 +42,6 @@ public class ListCommand extends Command {
     private String formatTaskList(List<Task> sortedTasks) {
         return IntStream.range(0, sortedTasks.size())
                 .mapToObj(i -> (i + 1) + ". " + sortedTasks.get(i))
-                .collect(Collectors.joining("\n", "Here are the tasks in your list:\n", ""));
+                .collect(Collectors.joining("\n", "Certainly, here are the tasks in your list:\n", ""));
     }
 }

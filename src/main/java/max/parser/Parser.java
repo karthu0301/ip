@@ -36,7 +36,7 @@ public class Parser {
      * @throws MaxException If the command is invalid or missing arguments.
      */
     public static Command parse(String fullCommand) throws MaxException {
-        assert fullCommand != null && !fullCommand.trim().isEmpty() : "Input command should not be null or empty";
+        assert fullCommand != null && !fullCommand.trim().isEmpty() : "A command shall not be empty!";
         String[] inputParts = fullCommand.split(" ", 2);
         String commandWord = inputParts[0];
         String arguments = inputParts.length > 1 ? inputParts[1] : "";
@@ -57,26 +57,28 @@ public class Parser {
                         : commandWord.equals(CMD_UNMARK) ? new MarkCommand(false, index)
                         : new DeleteCommand(index);
             } catch (NumberFormatException e) {
-                throw new MaxException("Please enter a valid task number.");
+                throw new MaxException("If you do not enter a valid task number, how could I read your mind?");
             }
         case CMD_ON:
             return new ShowCommand(arguments);
         case CMD_FIND:
             if (arguments.trim().isEmpty()) {
-                throw new MaxException("Please provide a keyword to search.");
+                throw new MaxException("Please provide a keyword to search. "
+                        + "This house's library is rather extensive, unlike yours.");
             }
             return new FindCommand(arguments);
         case CMD_BYE:
             return new ExitCommand();
         case CMD_PRIORITY:
             if (inputParts.length < 3) {
-                throw new MaxException("Priority command format: priority [task number] [low/medium/high]");
+                throw new MaxException("To break it down even further for you, "
+                        + "priority command format: priority [task number] [low/medium/high]");
             }
             int taskIndex = Integer.parseInt(inputParts[1]);
             Priority priority = Priority.valueOf(inputParts[2].toUpperCase()); // Convert string to enum
             return new PriorityCommand(taskIndex, priority);
         default:
-            throw new MaxException("Oh no! Unknown command! Did you mean 'todo', 'deadline', 'event', or 'find'?");
+            throw new MaxException("What a strange command! Did you mean 'todo', 'deadline', 'event', or 'find'?");
         }
     }
 }

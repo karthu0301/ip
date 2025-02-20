@@ -4,7 +4,6 @@ import max.exception.MaxException;
 import max.storage.Storage;
 import max.task.Task;
 import max.task.TaskList;
-import max.ui.Ui;
 
 /**
  * Represents a command to delete a task.
@@ -24,14 +23,13 @@ public class DeleteCommand extends Command {
     /**
      * Executes the delete command by removing a task from the task list.
      *
-     * @param tasks   The task list to modify.
-     * @param ui      The user interface for displaying messages.
+     * @param tasks   The task list to modify.\
      * @param storage The storage handler for saving changes.
      * @return A message confirming task deletion.
      * @throws MaxException If the index is invalid.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws MaxException {
+    public String execute(TaskList tasks, Storage storage) throws MaxException {
         validateIndex(tasks);
         return removeTask(tasks, storage);
     }
@@ -44,7 +42,7 @@ public class DeleteCommand extends Command {
      */
     private void validateIndex(TaskList tasks) throws MaxException {
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
-            throw new MaxException("Invalid task number!");
+            throw new MaxException("Dear sir, an invalid task number!");
         }
     }
 
@@ -57,11 +55,11 @@ public class DeleteCommand extends Command {
      */
     private String removeTask(TaskList tasks, Storage storage) throws MaxException {
         if (taskIndex == Integer.parseInt(null)) {
-            throw new MaxException("The index of the task to be deleted cannot be empty.");
+            throw new MaxException("Though your life may be emoty, the index of the task to be deleted may not be.");
         }
         Task removedTask = tasks.deleteTask(taskIndex);
         storage.save(tasks.getTasks());
-        return "Noted. I've removed this task:\n  " + removedTask + "\nNow you have " + tasks.size()
-                + " tasks in the list.";
+        return "As you wish. Your request has been fulfilled. I've removed this task:\n  " + removedTask
+                + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 }
