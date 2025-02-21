@@ -38,15 +38,12 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setTitle("Max Chatbot");
 
-            // Set minimum size to prevent UI breakage
             stage.setMinWidth(400);
             stage.setMinHeight(400);
 
-            // Ensure it starts at a reasonable size
             stage.setWidth(500);
             stage.setHeight(600);
 
-            // Allow resizing to fit user preferences
             stage.setResizable(true);
             stage.show();
         } catch (Exception e) {

@@ -31,8 +31,6 @@ public class PriorityCommandTest {
         taskList = new TaskList();
         taskList.addTask(new ToDo("Finish homework"));
         taskList.addTask(new ToDo("Buy groceries"));
-
-
         testFile = File.createTempFile("test", ".txt");
         storage = new Storage(testFile.getAbsolutePath());
     }
@@ -45,11 +43,8 @@ public class PriorityCommandTest {
         PriorityCommand command = new PriorityCommand(1, Priority.HIGH);
         String response = command.execute(taskList, storage);
 
-        // Ensure the priority is updated
         assertEquals(Priority.HIGH, taskList.getTask(0).getPriority());
         assertTrue(response.contains("Very good sir! I have updated the priority for task:"));
-
-        // Ensure the task list is saved properly
         assertTrue(testFile.exists() && testFile.length() > 0);
     }
 
@@ -60,7 +55,6 @@ public class PriorityCommandTest {
     public void execute_invalidIndex_throwsException() {
         PriorityCommand command = new PriorityCommand(5, Priority.MEDIUM);
         Exception exception = assertThrows(MaxException.class, () -> command.execute(taskList, storage));
-
         assertEquals("Invalid task number!", exception.getMessage());
     }
 
@@ -71,7 +65,6 @@ public class PriorityCommandTest {
     public void execute_negativeIndex_throwsException() {
         PriorityCommand command = new PriorityCommand(-1, Priority.LOW);
         Exception exception = assertThrows(MaxException.class, () -> command.execute(taskList, storage));
-
         assertEquals("Invalid task number!", exception.getMessage());
     }
 }

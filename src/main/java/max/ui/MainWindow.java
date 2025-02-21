@@ -40,7 +40,9 @@ public class MainWindow {
 
     private void showWelcomeMessage() {
         dialogContainer.getChildren().add(
-                DialogBox.getMaxDialog("Ah, welcome. I am Max, your ever-diligent butler. How may I be of service?")
+                DialogBox.getMaxDialog("Ah, welcome. I am Max, your ever-diligent butler."
+                        +
+                        " How may I be of service?")
         );
     }
 
@@ -53,14 +55,11 @@ public class MainWindow {
         String input = userInput.getText();
 
         if (input.trim().isEmpty()) {
-            return; // Ignore empty messages
+            return;
         }
-
-        // Show user message
         DialogBox userDialog = DialogBox.getUserDialog(input);
         dialogContainer.getChildren().add(userDialog);
 
-        // Show "Max is typing..." message temporarily
         Label typingLabel = new Label("Max is running to you...");
         typingLabel.getStyleClass().add("typing-indicator");
         DialogBox typingDialog = new DialogBox(typingLabel, new ImageView(), false);
