@@ -40,7 +40,12 @@ public class Storage {
         if (!file.exists()) {
             try {
                 Files.createDirectories(Path.of(file.getParent()));
-                file.createNewFile();
+                boolean isNewFileCreated = file.createNewFile();
+                if (isNewFileCreated) {
+                    System.out.println("New file created: " + filePath);
+                } else {
+                    System.out.println("File already exists: " + filePath);
+                }
             } catch (IOException e) {
                 throw new MaxException("Error creating file: " + filePath);
             }

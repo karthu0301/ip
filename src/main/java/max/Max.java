@@ -11,7 +11,7 @@ import max.task.TaskList;
  */
 public class Max {
     private final Storage storage;
-    private TaskList tasks;
+    private final TaskList tasks;
 
     /**
      * Constructs a {@code Max} instance.
