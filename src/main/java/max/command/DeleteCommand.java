@@ -60,7 +60,7 @@ public class DeleteCommand extends Command {
     private String removeTask(TaskList tasks, Storage storage) throws MaxException {
         Task removedTask = tasks.deleteTask(taskIndex);
         storage.save(tasks.getTasks());
-        return "As you wish. Your request has been fulfilled. I've removed this task:\n  " + removedTask
+        return "Very well, it's as if it never existed:\n  " + removedTask
                 + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 }

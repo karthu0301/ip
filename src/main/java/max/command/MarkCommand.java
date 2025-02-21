@@ -67,6 +67,6 @@ public class MarkCommand extends Command {
         storage.save(tasks.getTasks());
         return (isMarking
                 ? "Beautiful! I always knew you could do this!:\n  "
-                : "Very good sir! Remember, it's never too late to carry out your duties!:\n  ") + task;
+                : "Very good, sir! Remember, it's never too late to carry out your duties!:\n  ") + task;
     }
 }

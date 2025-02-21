@@ -30,13 +30,25 @@ public class ShowCommand extends Command {
     @Override
     public String execute(TaskList tasks, Storage storage) {
         StringBuilder response = new StringBuilder("Here are the tasks on " + date + ":\n");
+        boolean found = false;
+
         for (Task task : tasks.getTasks()) {
             if (task instanceof Deadline && ((Deadline) task).isOnDate(date)) {
                 response.append("  ").append(task).append("\n");
+                found = true;
             } else if (task instanceof Event && ((Event) task).isOnDate(date)) {
                 response.append("  ").append(task).append("\n");
+                found = true;
             }
         }
+
+        if (!found) {
+            response.append("Alas, there are no tasks scheduled on this particular date. "
+                    +
+                    "What a splendid day for a bit of leisure!");
+        }
+
         return response.toString();
     }
+
 }
