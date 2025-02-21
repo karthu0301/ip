@@ -1,6 +1,6 @@
 # Max - Your Ever Diligent Butler
 
-![Ui.png](Ui.png)
+![Ui.png](/Users/rajirajeev/Documents/Karthika/NUS/Github/ip/docs/Ui.png)
 
 A sophisticated virtual butler at your service.
 
