@@ -45,7 +45,7 @@ public class DialogBox extends HBox {
         displayPicture.setClip(clip);
 
         this.setSpacing(10);
-        this.setPadding(new Insets(5, 10, 5, 10)); // Adds padding
+        this.setPadding(new Insets(5, 10, 5, 10));
 
         if (isUser) {
             this.setAlignment(Pos.TOP_RIGHT);
@@ -55,7 +55,6 @@ public class DialogBox extends HBox {
             this.getChildren().addAll(displayPicture, text);
         }
 
-        // Fade-in Animation
         FadeTransition fade = new FadeTransition(Duration.millis(500), this);
         fade.setFromValue(0);
         fade.setToValue(1);

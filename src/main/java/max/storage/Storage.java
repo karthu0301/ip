@@ -54,7 +54,6 @@ public class Storage {
         } catch (IOException e) {
             throw new MaxException("Error reading file: " + filePath);
         }
-        assert tasks != null : "Loaded task list should not be null";
         return tasks;
     }
 

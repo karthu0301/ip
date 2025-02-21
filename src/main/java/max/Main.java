@@ -9,8 +9,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import max.ui.MainWindow;
 
-
-
 /**
  * The main entry point for the JavaFX application.
  */
@@ -48,7 +46,6 @@ public class Main extends Application {
             stage.show();
         } catch (Exception e) {
             System.err.println("Error initializing UI: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 
