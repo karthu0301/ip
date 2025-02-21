@@ -6,10 +6,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import max.Max;
-
 
 /**
  * Controller for MainWindow. Provides layout for the chatbot.
@@ -30,9 +30,12 @@ public class MainWindow {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-
-        // Show the welcome message
         showWelcomeMessage();
+        userInput.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                handleUserInput();
+            }
+        });
     }
 
     private void showWelcomeMessage() {
@@ -58,19 +61,18 @@ public class MainWindow {
         dialogContainer.getChildren().add(userDialog);
 
         // Show "Max is typing..." message temporarily
-        Label typingLabel = new Label("Max is thinking...");
+        Label typingLabel = new Label("Max is running to you...");
         typingLabel.getStyleClass().add("typing-indicator");
         DialogBox typingDialog = new DialogBox(typingLabel, new ImageView(), false);
         dialogContainer.getChildren().add(typingDialog);
 
         userInput.clear();
 
-        // Simulate a delay before showing Max's response
-        PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
+        PauseTransition pause = new PauseTransition(Duration.seconds(0.75));
         pause.setOnFinished(event -> {
-            dialogContainer.getChildren().remove(typingDialog); // Remove typing indicator
-            String response = max.getResponse(input); // Get actual response
-            dialogContainer.getChildren().add(DialogBox.getMaxDialog(response)); // Show Max's response
+            dialogContainer.getChildren().remove(typingDialog);
+            String response = max.getResponse(input);
+            dialogContainer.getChildren().add(DialogBox.getMaxDialog(response));
         });
         pause.play();
     }

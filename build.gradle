@@ -51,7 +51,7 @@ test {
 }
 
 application {
-    mainClass.set("max.Main")
+    mainClass.set("max.Launcher")
 }
 
 shadowJar {

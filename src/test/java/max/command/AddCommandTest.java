@@ -19,7 +19,7 @@ public class AddCommandTest {
     private Storage storage;
 
     /**
-     * Initializes a new task list, UI, and storage before each test case.
+     * Initializes a new task list and storage before each test case.
      */
     @BeforeEach
     void setUp() {
@@ -37,7 +37,8 @@ public class AddCommandTest {
         AddCommand command = new AddCommand("todo", "read book", Priority.LOW);
         command.execute(tasks, storage);
         assertEquals(1, tasks.size(), "Task list size should be 1 after adding a task.");
-        assertEquals("[T][ ] read book", tasks.getTask(0).toString(), "Task description should match expected format.");
+        assertEquals("[T][ ][LOW] read book", tasks.getTask(0).toString(),
+                "Task description should match expected format.");
     }
 
     /**
@@ -45,13 +46,11 @@ public class AddCommandTest {
      */
     @Test
     public void execute_exceptionThrown() {
-        Exception exception = assertThrows(MaxException.class, () -> {
-            AddCommand command = new AddCommand("todo", "", Priority.LOW); // Empty description should fail
-            command.execute(tasks, storage);
-        });
-
+        AddCommand command = new AddCommand("todo", "", Priority.LOW);
+        Exception exception = assertThrows(MaxException.class, () -> command.execute(tasks, storage));
         assertEquals("Oh dear, an error! Allow me to correct it please, "
-                        + "the description of a todo cannot be empty.", exception.getMessage(),
-                "Exception message should indicate that a description is required.");
+                +
+                "the description of a todo cannot be empty.", exception.getMessage());
     }
+
 }

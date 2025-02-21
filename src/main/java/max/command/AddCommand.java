@@ -93,7 +93,11 @@ public class AddCommand extends Command {
             throw new MaxException("Oh dear, an invalid deadline format. Please use: deadline [description] "
                     + "/by [time] instead");
         }
-        return new Deadline(parts[0], parts[1]);
+        try {
+            return new Deadline(parts[0], parts[1]);
+        } catch (IllegalArgumentException e) {
+            throw new MaxException(e.getMessage());
+        }
     }
 
     /**
@@ -109,7 +113,11 @@ public class AddCommand extends Command {
                     + "Use: event [description] /from [start] /to [end]");
         }
         String[] timeParts = parts[1].split(" /to ");
-        return new Event(parts[0], timeParts[0], timeParts[1]);
+        try {
+            return new Event(parts[0], timeParts[0], timeParts[1]);
+        } catch (IllegalArgumentException e) {
+            throw new MaxException(e.getMessage());
+        }
     }
 
     /**
@@ -123,7 +131,7 @@ public class AddCommand extends Command {
     private String addTaskToList(TaskList tasks, Storage storage, Task task) throws MaxException {
         tasks.addTask(task);
         storage.save(tasks.getTasks());
-        return "Certainly, sir/madam. I shall add that task immediately. :\n  " + task + "\nNow you have "
+        return "Certainly, sir. I shall add that task immediately. :\n  " + task + "\nNow you have "
                 + tasks.size() + " tasks in the list.";
     }
 }

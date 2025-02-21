@@ -30,8 +30,12 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws MaxException {
-        validateIndex(tasks);
-        return removeTask(tasks, storage);
+        try {
+            validateIndex(tasks);
+            return removeTask(tasks, storage);
+        } catch (MaxException e) {
+            return e.getMessage();
+        }
     }
 
     /**
@@ -54,9 +58,6 @@ public class DeleteCommand extends Command {
      * @return A confirmation message.
      */
     private String removeTask(TaskList tasks, Storage storage) throws MaxException {
-        if (taskIndex == Integer.parseInt(null)) {
-            throw new MaxException("Though your life may be emoty, the index of the task to be deleted may not be.");
-        }
         Task removedTask = tasks.deleteTask(taskIndex);
         storage.save(tasks.getTasks());
         return "As you wish. Your request has been fulfilled. I've removed this task:\n  " + removedTask

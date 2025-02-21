@@ -70,13 +70,21 @@ public class Parser {
         case CMD_BYE:
             return new ExitCommand();
         case CMD_PRIORITY:
-            if (inputParts.length < 3) {
+            String[] parts = fullCommand.trim().split("\\s+");
+            if (parts.length != 3) {
                 throw new MaxException("To break it down even further for you, "
-                        + "priority command format: priority [task number] [low/medium/high]");
+                        +
+                        "priority command format: priority [task number] [low/medium/high]");
             }
-            int taskIndex = Integer.parseInt(inputParts[1]);
-            Priority priority = Priority.valueOf(inputParts[2].toUpperCase()); // Convert string to enum
-            return new PriorityCommand(taskIndex, priority);
+            try {
+                int taskIndex = Integer.parseInt(parts[1]);
+                Priority priority = Priority.valueOf(parts[2].toUpperCase());
+                return new PriorityCommand(taskIndex, priority);
+            } catch (NumberFormatException e) {
+                throw new MaxException("Invalid task number format!");
+            } catch (IllegalArgumentException e) {
+                throw new MaxException("Invalid priority level. Use low, medium, or high.");
+            }
         default:
             throw new MaxException("What a strange command! Did you mean 'todo', 'deadline', 'event', or 'find'?");
         }

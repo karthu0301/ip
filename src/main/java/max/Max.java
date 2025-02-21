@@ -44,12 +44,11 @@ public class Max {
         assert input != null : "User input should not be null";
         String response;
         try {
-            response = Parser.parse(input).execute(tasks, ui, storage);
+            response = Parser.parse(input).execute(tasks, storage);
             assert response != null : "Response should not be null";
         } catch (MaxException e) {
             return e.getMessage();
         }
-        assert response != null : "Chatbot response should never be null";
         return response;
     }
 

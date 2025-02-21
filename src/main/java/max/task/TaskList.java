@@ -46,9 +46,6 @@ public class TaskList {
      * @throws IndexOutOfBoundsException if the index is invalid.
      */
     public Task deleteTask(int index) {
-        if (index < 0 || index >= tasks.size()) {
-            throw new IndexOutOfBoundsException("Invalid task index: " + index);
-        }
         return tasks.remove(index);
     }
 

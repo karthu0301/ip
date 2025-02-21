@@ -31,6 +31,6 @@ public class PriorityCommand extends Command {
         task.setPriority(priority);
         storage.save(tasks.getTasks());
 
-        return "Updated priority for task:\n  " + task;
+        return "Very good sir! I have updated the priority for task:\n  " + task;
     }
 }

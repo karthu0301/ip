@@ -21,9 +21,9 @@ public class Main extends Application {
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainWindow.fxml"));
-            Parent root = fxmlLoader.load(); // Load UI before setting controller
+            Parent root = fxmlLoader.load();
             MainWindow controller = fxmlLoader.getController();
-            controller.setMax(chatbot); // Pass chatbot instance
+            controller.setMax(chatbot);
 
             Scene scene = new Scene(root);
 
@@ -39,12 +39,12 @@ public class Main extends Application {
             stage.setTitle("Max Chatbot");
 
             // Set minimum size to prevent UI breakage
-            stage.setMinWidth(600);
+            stage.setMinWidth(400);
             stage.setMinHeight(400);
 
             // Ensure it starts at a reasonable size
-            stage.setWidth(900);
-            stage.setHeight(650);
+            stage.setWidth(500);
+            stage.setHeight(600);
 
             // Allow resizing to fit user preferences
             stage.setResizable(true);

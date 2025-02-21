@@ -29,10 +29,6 @@ public class Event extends Task {
         if (this.from.isAfter(this.to) || this.from.isEqual(this.to)) {
             throw new IllegalArgumentException("As per common sense, start time must be before end time.");
         }
-
-        if (this.to.isBefore(LocalDateTime.now())) {
-            System.out.println("Warning! This event has already ended!");
-        }
     }
 
     private LocalDateTime parseDateTime(String dateTime, String fieldName) {

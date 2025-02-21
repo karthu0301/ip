@@ -75,7 +75,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        return "[" + getStatusIcon() + "][" + priority + "] " + description;
     }
 
     /**
@@ -123,7 +123,9 @@ public abstract class Task {
             throw new IllegalArgumentException("This task type is unknown, just like you: " + type);
         }
 
-        if (isDone) { task.markAsDone(); }
+        if (isDone) {
+            task.markAsDone();
+        }
         return task;
     }
 }

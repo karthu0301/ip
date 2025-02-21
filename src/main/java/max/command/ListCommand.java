@@ -26,22 +26,22 @@ public class ListCommand extends Command {
             return "Unfortunately sir/madam, just like your wallet, your task list is empty!";
         }
 
-        List<Task> sortedTasks = tasks.getTasks().stream()
-                .sorted((t1, t2) -> Integer.compare(t2.getPriority().getLevel(), t1.getPriority().getLevel()))
-                .collect(Collectors.toList());
+        List<Task> originalOrderTasks = tasks.getTasks();
 
-        return formatTaskList(sortedTasks);
+        return formatTaskList(originalOrderTasks);
     }
 
     /**
      * Formats the sorted task list into a numbered string.
      *
-     * @param sortedTasks The sorted list of tasks.
+     * @param originalOrderTasks The sorted list of tasks.
      * @return The formatted list as a string.
      */
-    private String formatTaskList(List<Task> sortedTasks) {
-        return IntStream.range(0, sortedTasks.size())
-                .mapToObj(i -> (i + 1) + ". " + sortedTasks.get(i))
-                .collect(Collectors.joining("\n", "Certainly, here are the tasks in your list:\n", ""));
+    private String formatTaskList(List<Task> originalOrderTasks) {
+        return IntStream.range(0, originalOrderTasks.size())
+                .mapToObj(i -> (i + 1) + ". " + originalOrderTasks.get(i))
+                .collect(Collectors.joining("\n", "Certainly, here are the tasks in your list. "
+                        +
+                        "They show the type, priority, description and duration of your tasks!\n", ""));
     }
 }

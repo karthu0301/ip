@@ -24,10 +24,6 @@ public class Deadline extends Task {
         super(description);
         assert by != null && !by.trim().isEmpty() : "Alas, the deadline date cannot be empty!";
         this.by = parseDateTime(by);
-
-        if (this.by.isBefore(LocalDateTime.now())) {
-            System.out.println("Warning! This deadline is in the past, like me!");
-        }
     }
 
     /**
@@ -41,7 +37,9 @@ public class Deadline extends Task {
         try {
             return LocalDateTime.parse(dateTime, INPUT_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Invalid deadline format! Use 'yyyy-MM-dd HHmm'.");
+            throw new IllegalArgumentException("Why, an invalid deadline format in the flesh! "
+                    +
+                    "Use 'yyyy-MM-dd HHmm', dear sir!");
         }
     }
 
@@ -70,9 +68,16 @@ public class Deadline extends Task {
      *
      * @param date Date in "yyyy-MM-dd" format.
      * @return True if the deadline matches the given date, false otherwise.
+     * @throws IllegalArgumentException If the date format is invalid.
      */
     public boolean isOnDate(String date) {
-        LocalDate givenDate = LocalDate.parse(date);
-        return by.toLocalDate().equals(givenDate);
+        try {
+            LocalDate givenDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            return by.toLocalDate().equals(givenDate);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Why, an invalid deadline format in the flesh! "
+                    +
+                    "Use 'yyyy-MM-dd', dear sir!");
+        }
     }
 }

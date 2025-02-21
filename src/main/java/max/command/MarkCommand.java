@@ -66,7 +66,7 @@ public class MarkCommand extends Command {
 
         storage.save(tasks.getTasks());
         return (isMarking
-                ? "As you wish, I've marked this task as done:\n  "
-                : "Very good sir! I've unmarked this task:\n  ") + task;
+                ? "Beautiful! I always knew you could do this!:\n  "
+                : "Very good sir! Remember, it's never too late to carry out your duties!:\n  ") + task;
     }
 }
