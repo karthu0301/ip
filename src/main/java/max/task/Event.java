@@ -47,9 +47,10 @@ public class Event extends Task {
 
     @Override
     public String toFileString() {
-        return "E | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | "
+        return "E | " + (isDone() ? "1" : "0") + " | " + getPriority().name() + " | " + getDescription() + " | "
                 + from.format(INPUT_FORMATTER) + " | " + to.format(INPUT_FORMATTER);
     }
+
 
     /**
      * Checks if the task's duration is on the given date and time.

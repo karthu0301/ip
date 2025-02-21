@@ -60,8 +60,11 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return "D | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + by.format(INPUT_FORMATTER);
+        return "D | " + (isDone() ? "1" : "0") + " | " + getPriority().name() + " | " + getDescription() + " | "
+                + by.format(INPUT_FORMATTER);
     }
+
+
 
     /**
      * Checks if the task's deadline is on the given date.

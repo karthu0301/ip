@@ -20,7 +20,7 @@ public class ExitCommand extends Command {
     public String execute(TaskList tasks, Storage storage) {
         String farewellMessage = "Good night, esteemed sir/madam. Might I suggest a moment of rest after your work?";
 
-        PauseTransition delay = new PauseTransition(Duration.seconds(3));
+        PauseTransition delay = new PauseTransition(Duration.seconds(2));
         delay.setOnFinished(event -> Platform.exit());
         delay.play();
 

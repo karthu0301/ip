@@ -1,6 +1,6 @@
 /* Background */
 .root {
-    -fx-background-color: #8B0000; /* Dark Chocolate Brown */
+    -fx-background-color: #411900; /* Dark Chocolate Brown */
 }
 
 /* Header */
@@ -11,7 +11,7 @@
     -fx-font-weight: bold;
     -fx-padding: 10px;
     -fx-alignment: center;
-    -fx-background-color: #68B0000; /* Rich Brown */
+    -fx-background-color: #411900; /* Rich Brown */
     -fx-background-radius: 10px;
     -fx-max-width: Infinity;
     -fx-text-alignment: center;

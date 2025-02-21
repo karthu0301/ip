@@ -90,8 +90,7 @@ public class AddCommand extends Command {
     private Task createDeadline() throws MaxException {
         String[] parts = description.split(" /by ");
         if (parts.length < 2) {
-            throw new MaxException("Oh dear, an invalid deadline format. Please use: deadline [description] "
-                    + "/by [time] instead");
+            throw new MaxException("Why, an invalid deadline format in the flesh! Use 'yyyy-MM-dd HHmm', dear sir!");
         }
         try {
             return new Deadline(parts[0], parts[1]);

@@ -53,7 +53,6 @@ public abstract class Task {
      */
     public void markAsDone() {
         this.isDone = true;
-        System.out.println("Beautiful! I always knew you could do this!:\n [X] " + this.description);
     }
 
     /**
@@ -61,7 +60,12 @@ public abstract class Task {
      */
     public void markAsNotDone() {
         this.isDone = false;
-        System.out.println("Alright, it's not too late to carry out your duties. :\n [] " + this.description);
+    }
+
+    private void setIsDone(boolean isDone) {
+        if (isDone) {
+            this.markAsDone();
+        }
     }
 
     /**
@@ -94,38 +98,39 @@ public abstract class Task {
      */
     public static Task fromFileString(String line) {
         String[] parts = line.split(" \\| ");
-
-        if (parts.length < 3) {
-            throw new IllegalArgumentException("How dare you enter an invalid task format: " + line);
+        if (parts.length < 4) {
+            throw new IllegalArgumentException("Invalid task format: " + line);
         }
 
         String type = parts[0];
         boolean isDone = parts[1].equals("1");
+        Priority priority = Priority.valueOf(parts[2]);
+        String description = parts[3];
 
         Task task;
         switch (type) {
         case "T":
-            task = new ToDo(parts[2]);
+            task = new ToDo(description);
             break;
         case "D":
-            if (parts.length < 4) {
-                throw new IllegalArgumentException("How dare you enter an invalid Deadline format: " + line);
+            if (parts.length < 5) {
+                throw new IllegalArgumentException("Invalid Deadline format: " + line);
             }
-            task = new Deadline(parts[2], parts[3]);
+            task = new Deadline(description, parts[4]);
             break;
         case "E":
-            if (parts.length < 5) {
-                throw new IllegalArgumentException("How dare you enter an invalid Event format: " + line);
+            if (parts.length < 6) {
+                throw new IllegalArgumentException("Invalid Event format: " + line);
             }
-            task = new Event(parts[2], parts[3], parts[4]);
+            task = new Event(description, parts[4], parts[5]);
             break;
         default:
-            throw new IllegalArgumentException("This task type is unknown, just like you: " + type);
+            throw new IllegalArgumentException("Unknown task type: " + type);
         }
 
-        if (isDone) {
-            task.markAsDone();
-        }
+        task.setIsDone(isDone);
+        task.setPriority(priority);
         return task;
     }
+
 }
