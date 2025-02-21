@@ -33,12 +33,16 @@ public class ShowCommand extends Command {
         boolean found = false;
 
         for (Task task : tasks.getTasks()) {
-            if (task instanceof Deadline && ((Deadline) task).isOnDate(date)) {
-                response.append("  ").append(task).append("\n");
-                found = true;
-            } else if (task instanceof Event && ((Event) task).isOnDate(date)) {
-                response.append("  ").append(task).append("\n");
-                found = true;
+            try {
+                if (task instanceof Deadline && ((Deadline) task).isOnDate(date)) {
+                    response.append("  ").append(task).append("\n");
+                    found = true;
+                } else if (task instanceof Event && ((Event) task).isOnDate(date)) {
+                    response.append("  ").append(task).append("\n");
+                    found = true;
+                }
+            } catch (IllegalArgumentException e) {
+                return e.getMessage();
             }
         }
 
