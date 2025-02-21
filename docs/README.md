@@ -104,11 +104,12 @@ Absolutely! Here's a revised version of the user guide that incorporates the per
 - **Command**: `on`
 - **Description**: Display tasks on a certain date.
 - **Usage**: `on 2025-04-02`
-- **Example**:
-  ```
-  You: on 2025-04-02
-  Max: Alas, there are no tasks scheduled on this particular date. What a splendid day for a bit of leisure!
-  ```
+  - **Example**:
+    ```
+    You: on 2025-04-02
+    Max: Here are the tasks on 2025-04-02:
+    Alas, there are no tasks scheduled on this particular date. What a splendid day for a bit of leisure!
+    ```
 
 ### Close the chatbot
 - **Command**: `bye`

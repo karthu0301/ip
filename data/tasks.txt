@@ -1,1 +1,3 @@
-T | 0 | HIGH | purchase tea leaves
+T | 0 | LOW | ndkfnkndhontke
+D | 1 | LOW | new | 2022-12-12 1200
+E | 0 | LOW | hiiii | 2022-12-12 1200 | 2222-02-22 2200

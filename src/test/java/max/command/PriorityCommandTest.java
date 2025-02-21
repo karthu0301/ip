@@ -44,7 +44,7 @@ public class PriorityCommandTest {
         String response = command.execute(taskList, storage);
 
         assertEquals(Priority.HIGH, taskList.getTask(0).getPriority());
-        assertTrue(response.contains("Very good sir! I have updated the priority for task:"));
+        assertTrue(response.contains("Very good, sir! I have updated the priority for task:"));
         assertTrue(testFile.exists() && testFile.length() > 0);
     }
 
