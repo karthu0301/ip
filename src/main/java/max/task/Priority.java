@@ -4,11 +4,16 @@ package max.task;
  * Represents the priority levels for tasks.
  */
 public enum Priority {
-    LOW(1), MEDIUM(2), HIGH(3);
+    LOW("LOW"), MEDIUM("MEDIUM"), HIGH("HIGH");
 
-    private final int level;
+    private final String name;
 
-    Priority(int level) {
-        this.level = level;
+    Priority(String name) {
+        this.name = name;
+    }
+
+    public String getLevel() {
+        return name;
     }
 }
+

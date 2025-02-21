@@ -32,6 +32,6 @@ public class ToDo extends Task {
      */
     @Override
     public String toFileString() {
-        return "T | " + (isDone() ? "1" : "0") + " | " + getPriority().name() + " | " + getDescription();
+        return "T | " + (isDone() ? "1" : "0") + " | " + getPriority().getLevel() + " | " + getDescription();
     }
 }

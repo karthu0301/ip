@@ -47,7 +47,7 @@ public class Event extends Task {
 
     @Override
     public String toFileString() {
-        return "E | " + (isDone() ? "1" : "0") + " | " + getPriority().name() + " | " + getDescription() + " | "
+        return "E | " + (isDone() ? "1" : "0") + " | " + getPriority().getLevel() + " | " + getDescription() + " | "
                 + from.format(INPUT_FORMATTER) + " | " + to.format(INPUT_FORMATTER);
     }
 

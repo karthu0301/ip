@@ -60,7 +60,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return "D | " + (isDone() ? "1" : "0") + " | " + getPriority().name() + " | " + getDescription() + " | "
+        return "D | " + (isDone() ? "1" : "0") + " | " + getPriority().getLevel() + " | " + getDescription() + " | "
                 + by.format(INPUT_FORMATTER);
     }
 
